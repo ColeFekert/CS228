@@ -3,8 +3,12 @@ var controllerOptions = {};
 var x = window.innerWidth / 2;
 var y = window.innerHeight / 2;
 
-function HandleFinger(finger) {
-  console.log(finger.tipPosition);
+function HandleFrame(frame) {
+  if (frame.hands.length == 1){
+    var hand = frame.hands[0];
+
+    HandleHand(hand);
+  }
 }
 
 function HandleHand(hand) {
@@ -17,12 +21,8 @@ function HandleHand(hand) {
   }
 }
 
-function HandleFrame(frame) {
-  if (frame.hands.length == 1){
-    var hand = frame.hands[0];
-
-    HandleHand(hand);
-  }
+function HandleFinger(finger) {
+  console.log(finger.tipPosition);
 }
 
 Leap.loop(controllerOptions, function(frame)
