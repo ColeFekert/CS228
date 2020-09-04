@@ -8,7 +8,9 @@ Leap.loop(controllerOptions, function(frame)
 {
   console.log(i);
 
-  circle(x, y, 50);
+  var rando = Math.floor(Math.random() * 2) - 1;
+
+  circle(x + rando, y, 50);
 
   i++;
 }
