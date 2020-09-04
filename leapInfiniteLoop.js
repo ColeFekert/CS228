@@ -3,20 +3,31 @@ var controllerOptions = {};
 var x = window.innerWidth / 2;
 var y = window.innerHeight / 2;
 
-Leap.loop(controllerOptions, function(frame)
-{
+function HandleFinger(finger) {
+  console.log(finger);
+}
+
+function HandleHand(hand) {
+  var fingers = hand.fingers;
+
+  for (var i = 0; i < fingers.length; i++) {
+    if (fingers[i].type == 1) {
+      HandleFinger(fingers[i]);
+    }
+  }
+}
+
+function HandleFrame(frame) {
   if (frame.hands.length == 1){
     var hand = frame.hands[0];
 
-    var fingers = hand.fingers;
-
-    for (var i = 0; i < fingers.length; i++) {
-      if (fingers[i].type == 1) {
-        console.log(fingers[i]);
-      }
-    }
-
+    HandleHand(hand);
   }
+}
+
+Leap.loop(controllerOptions, function(frame)
+{
+  HandleFrame(frame);
 
   // clear();
   //
