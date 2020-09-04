@@ -4,7 +4,7 @@ var x = window.innerWidth / 2;
 var y = window.innerHeight / 2;
 
 function HandleFinger(finger) {
-  console.log(finger);
+  console.log(finger.tipPosition);
 }
 
 function HandleHand(hand) {
