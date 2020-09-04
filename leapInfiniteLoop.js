@@ -10,7 +10,12 @@ Leap.loop(controllerOptions, function(frame)
 
     var fingers = hand.fingers;
 
-    console.log(fingers);
+    for (var i = 0; i < fingers.length; i++) {
+      if (fingers[i].type == 1) {
+        console.log(fingers[i]);
+      }
+    }
+
   }
 
   // clear();
