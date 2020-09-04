@@ -5,7 +5,9 @@ var y = window.innerHeight / 2;
 
 Leap.loop(controllerOptions, function(frame)
 {
-  console.log(frame.hands);
+  if (frame.hands.length == 1){
+    console.log(frame.hands);
+  }
 
   // clear();
   //
