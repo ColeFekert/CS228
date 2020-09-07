@@ -42,12 +42,12 @@ function HandleFinger(finger) {
     rawXMax = finger.tipPosition[0];
   }
 
-  if (finger.tipPosition[2] < rawYMin) {
-    rawYMin = finger.tipPosition[2];
+  if (finger.tipPosition[1] < rawYMin) {
+    rawYMin = finger.tipPosition[1];
   }
 
-  if (finger.tipPosition[2] > rawYMax) {
-    rawYMax = finger.tipPosition[2];
+  if (finger.tipPosition[1] > rawYMax) {
+    rawYMax = finger.tipPosition[1];
   }
 
   x = finger.tipPosition[0];
@@ -60,6 +60,10 @@ Leap.loop(controllerOptions, function(frame)
   clear();
 
   HandleFrame(frame);
+
+  x = (((window.innerWidth - 0) * (x - rawXMin)) / (rawXMax - rawXMin));
+
+  y = (((window.innerWidth - 0) * (y - rawYMin)) / (rawYMax - rawYMin));
 
   circle(x, window.innerHeight - y, z);
 
