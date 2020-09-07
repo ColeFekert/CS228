@@ -22,15 +22,18 @@ function HandleHand(hand) {
 }
 
 function HandleFinger(finger) {
-  console.log(finger.tipPosition);
+  // console.log(finger.tipPosition);
+  x = finger.tipPosition[0];
+  y = finger.tipPosition[1];
+  z = finger.tipPosition[2];
 }
 
 Leap.loop(controllerOptions, function(frame)
 {
+  clear();
+
   HandleFrame(frame);
 
-  // clear();
-  //
   // var rando1 = Math.floor(Math.random() * 2) - 1;
   // var rando2 = Math.floor(Math.random() * 2) - 1;
   //
