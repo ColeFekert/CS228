@@ -28,7 +28,27 @@ function HandleHand(hand) {
 }
 
 function HandleFinger(finger) {
-  console.log(finger.tipPosition);
+  // console.log(finger.tipPosition);
+  console.log("XMax: " + rawXMax);
+  console.log("XMin: " + rawXMin);
+  console.log("YMax: " + rawYMax);
+  console.log("YMin: " + rawYMin);
+
+  if (finger.tipPosition[0] < rawXMin) {
+    rawXMin = finger.tipPosition[0];
+  }
+
+  if (finger.tipPosition[0] > rawXMax) {
+    rawXMax = finger.tipPosition[0];
+  }
+
+  if (finger.tipPosition[2] < rawYMin) {
+    rawYMin = finger.tipPosition[2];
+  }
+
+  if (finger.tipPosition[2] > rawYMax) {
+    rawYMax = finger.tipPosition[2];
+  }
 
   x = finger.tipPosition[0];
   y = finger.tipPosition[1];
@@ -41,7 +61,7 @@ Leap.loop(controllerOptions, function(frame)
 
   HandleFrame(frame);
 
-  circle(x, window.innerHeight + z, y);
+  circle(x, window.innerHeight - y, z);
 
   // circle(window.innerWidth - x, window.innerHeight - y, z);
 
