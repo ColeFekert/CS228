@@ -1,5 +1,10 @@
 var controllerOptions = {};
 
+var rawXMin = 9999;
+var rawXMax = 0;
+var rawYMin = 9999;
+var rawYMax = 0;
+
 var x = window.innerWidth / 2;
 var y = window.innerHeight / 2;
 var z = 0;
