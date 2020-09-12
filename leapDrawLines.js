@@ -9,6 +9,10 @@ var x = window.innerWidth / 2;
 var y = window.innerHeight / 2;
 var z = 0;
 
+var xBase = window.innerWidth / 2;
+var yBase = window.innerHeight / 2;
+var zBase = 0;
+
 function HandleFrame(frame) {
   if (frame.hands.length == 1){
     var hand = frame.hands[0];
@@ -78,6 +82,32 @@ function HandleBone(bone) {
   y = bone.nextJoint[1];
   z = bone.nextJoint[2];
 
+  xBase = bone.prevJoint[0];
+  yBase = bone.prevJoint[1];
+  zBase = bone.prevJoint[2];
+
+  // var a = bone.prevJoint[0];
+  // var b = bone.prevJoint[1];
+  // var c = bone.prevJoint[2];
+  //
+  // if (bone.nextJoint[0] < rawXMin) {
+  //   rawXMin = bone.nextJoint[0];
+  // }
+  //
+  // if (bone.prevJoint[0] > rawXMax) {
+  //   rawXMax = bone.prevJoint[0];
+  // }
+  //
+  // if (bone.nextJoint[2] < rawYMin) {
+  //   rawYMin = bone.nextJoint[1];
+  // }
+  //
+  // if (bone.prevJoint[1] > rawYMax) {
+  //   rawYMax = bone.prevJoint[1];
+  // }
+
+
+
   // console.log(x);
   // console.log(y);
   // console.log(z);
@@ -86,7 +116,17 @@ function HandleBone(bone) {
 
   y = (((window.innerWidth - 0) * (y - rawYMin)) / (rawYMax - rawYMin));
 
+  xBase = (((window.innerWidth - 0) * (xBase - rawXMin)) / (rawXMax - rawXMin));
+
+  yBase = (((window.innerWidth - 0) * (yBase - rawYMin)) / (rawYMax - rawYMin));
+
+  console.log("x " + x);
+  console.log("xBase " + xBase);
+
   circle(x, window.innerHeight - y, z);
+  //
+  // line(x, window.innerHeight - y, window.innerHeight - bone.prevJoint[0], window.innerHeight - bone.prevJoint[1]);
+  line(x, window.innerHeight - y, z, xBase, window.innerHeight - yBase, zBase);
 }
 
 Leap.loop(controllerOptions, function(frame)
