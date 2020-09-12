@@ -40,7 +40,8 @@ function HandleFinger(finger) {
   // console.log("YMin: " + rawYMin);
 
   for (var i = 0; i <= 3; i++) {
-    console.log(finger.bones[i]);
+    // console.log(finger.bones[i]);
+    HandleBone(finger.bones[i]);
   }
 
   if (finger.tipPosition[0] < rawXMin) {
@@ -68,6 +69,10 @@ function HandleFinger(finger) {
   y = (((window.innerWidth - 0) * (y - rawYMin)) / (rawYMax - rawYMin));
 
   // circle(x, window.innerHeight - y, z);
+}
+
+function HandleBone(bone) {
+  console.log(bone);
 }
 
 Leap.loop(controllerOptions, function(frame)
