@@ -78,9 +78,15 @@ function HandleBone(bone) {
   y = bone.nextJoint[1];
   z = bone.nextJoint[2];
 
-  console.log(x);
-  console.log(y);
-  console.log(z);
+  // console.log(x);
+  // console.log(y);
+  // console.log(z);
+
+  x = (((window.innerWidth - 0) * (x - rawXMin)) / (rawXMax - rawXMin));
+
+  y = (((window.innerWidth - 0) * (y - rawYMin)) / (rawYMax - rawYMin));
+
+  circle(x, window.innerHeight - y, z);
 }
 
 Leap.loop(controllerOptions, function(frame)
