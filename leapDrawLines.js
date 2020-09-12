@@ -72,7 +72,15 @@ function HandleFinger(finger) {
 }
 
 function HandleBone(bone) {
-  console.log(bone);
+  // console.log(bone);
+
+  x = bone.nextJoint[0];
+  y = bone.nextJoint[1];
+  z = bone.nextJoint[2];
+
+  console.log(x);
+  console.log(y);
+  console.log(z);
 }
 
 Leap.loop(controllerOptions, function(frame)
