@@ -21,9 +21,11 @@ function HandleHand(hand) {
   var fingers = hand.fingers;
 
   for (var i = 0; i < fingers.length; i++) {
-    if (fingers[i].type == 1) {
-      HandleFinger(fingers[i]);
-    }
+    // if (fingers[i].type == 1) {
+    //   HandleFinger(fingers[i]);
+    // }
+
+    HandleFinger(fingers[i]);
   }
 }
 
@@ -53,6 +55,12 @@ function HandleFinger(finger) {
   x = finger.tipPosition[0];
   y = finger.tipPosition[1];
   z = finger.tipPosition[2];
+
+  x = (((window.innerWidth - 0) * (x - rawXMin)) / (rawXMax - rawXMin));
+
+  y = (((window.innerWidth - 0) * (y - rawYMin)) / (rawYMax - rawYMin));
+
+  circle(x, window.innerHeight - y, z);
 }
 
 Leap.loop(controllerOptions, function(frame)
@@ -61,11 +69,7 @@ Leap.loop(controllerOptions, function(frame)
 
   HandleFrame(frame);
 
-  x = (((window.innerWidth - 0) * (x - rawXMin)) / (rawXMax - rawXMin));
 
-  y = (((window.innerWidth - 0) * (y - rawYMin)) / (rawYMax - rawYMin));
-
-  circle(x, window.innerHeight - y, z);
 
   // circle(window.innerWidth - x, window.innerHeight - y, z);
 
