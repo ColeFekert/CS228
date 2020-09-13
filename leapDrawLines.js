@@ -5,10 +5,12 @@ var rawXMax = 0;
 var rawYMin = 9999;
 var rawYMax = 0;
 
+// Finger Vars
 var x = window.innerWidth / 2;
 var y = window.innerHeight / 2;
 var z = 0;
 
+// Bone Vars
 var xt = window.innerWidth / 2;
 var yt = window.innerHeight / 2;
 var zt = 0;
@@ -53,24 +55,11 @@ function HandleHand(hand) {
   var fingers = hand.fingers;
 
   for (var i = 0; i < fingers.length; i++) {
-    // if (fingers[i].type == 1) {
-    //   HandleFinger(fingers[i]);
-    // }
-
     HandleFinger(fingers[i]);
   }
 }
 
 function HandleFinger(finger) {
-  // console.log(finger);
-  // console.log(finger.tipPosition);
-  // console.log("XMax: " + rawXMax);
-  // console.log("XMin: " + rawXMin);
-  // console.log("YMax: " + rawYMax);
-  // console.log("YMin: " + rawYMin);
-  // console.log(finger.bones);
-
-
   for (var i = 0; i < finger.bones.length; i++) {
     HandleBone(finger.bones[i]);
   }
@@ -85,7 +74,6 @@ function HandleFinger(finger) {
 }
 
 function HandleBone(bone) {
-  // console.log(bone);
   console.log("-----");
 
   xt = bone.nextJoint[0];
@@ -99,18 +87,7 @@ function HandleBone(bone) {
   [xt, yt] = TransformCoordinates(xt, yt);
   [xb, yb] = TransformCoordinates(xb, yb);
 
-  // console.log("xb:" + xb);
-  // console.log("xt:" + xt);
-
-  circle(xt, window.innerHeight - yt, zt);
-  // strokeWeight(4);
-  // circle(xb, window.innerHeight - yb, zb);
-
-  // line(window.innerWidth - xb, window.innerHeight - yb, zb, window.innerWidth - xt, window.innerHeight - yt, zt);
-
-  // line(xt, zt, yt, xb, zb, yb);
-
-  line (xt, window.innerHeight - yt, zt, xb, yb, zb);
+  line(xt, window.innerHeight - yt, xb, window.innerHeight - yb, zt, zb);
 }
 
 Leap.loop(controllerOptions, function(frame)
@@ -118,13 +95,5 @@ Leap.loop(controllerOptions, function(frame)
   clear();
 
   HandleFrame(frame);
-
-
-
-  // circle(window.innerWidth - x, window.innerHeight - y, z);
-
-  // var rando1 = Math.floor(Math.random() * 2) - 1;
-  // var rando2 = Math.floor(Math.random() * 2) - 1;
-  //
 }
 );
