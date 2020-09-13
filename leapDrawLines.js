@@ -68,9 +68,10 @@ function HandleFinger(finger) {
   // console.log("XMin: " + rawXMin);
   // console.log("YMax: " + rawYMax);
   // console.log("YMin: " + rawYMin);
+  // console.log(finger.bones);
 
-  for (var i = 0; i <= 3; i++) {
-    // console.log(finger.bones[i]);
+
+  for (var i = 0; i < finger.bones.length; i++) {
     HandleBone(finger.bones[i]);
   }
 
@@ -98,14 +99,18 @@ function HandleBone(bone) {
   [xt, yt] = TransformCoordinates(xt, yt);
   [xb, yb] = TransformCoordinates(xb, yb);
 
-  console.log("xb:" + xb);
-  console.log("xt:" + xt);
+  // console.log("xb:" + xb);
+  // console.log("xt:" + xt);
 
   circle(xt, window.innerHeight - yt, zt);
   // strokeWeight(4);
-  circle(xb, window.innerHeight - yb, zb);
+  // circle(xb, window.innerHeight - yb, zb);
 
-  line(xt, window.innerHeight - yt, zt, xb, window.innerHeight - yb, zb);
+  // line(window.innerWidth - xb, window.innerHeight - yb, zb, window.innerWidth - xt, window.innerHeight - yt, zt);
+
+  // line(xt, zt, yt, xb, zb, yb);
+
+  line (xt, window.innerHeight - yt, zt, xb, yb, zb);
 }
 
 Leap.loop(controllerOptions, function(frame)
