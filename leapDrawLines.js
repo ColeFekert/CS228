@@ -9,53 +9,15 @@ var x = window.innerWidth / 2;
 var y = window.innerHeight / 2;
 var z = 0;
 
-var xBase = window.innerWidth / 2;
-var yBase = window.innerHeight / 2;
-var zBase = 0;
+var xt = window.innerWidth / 2;
+var yt = window.innerHeight / 2;
+var zt = 0;
+
+var xb = window.innerWidth / 2;
+var yb = window.innerHeight / 2;
+var zb = 0;
 
 function TransformCoordinates(x,y) {
-
-}
-
-function HandleFrame(frame) {
-  if (frame.hands.length == 1){
-    var hand = frame.hands[0];
-
-    HandleHand(hand);
-  }
-}
-
-function HandleHand(hand) {
-  var fingers = hand.fingers;
-
-  for (var i = 0; i < fingers.length; i++) {
-    // if (fingers[i].type == 1) {
-    //   HandleFinger(fingers[i]);
-    // }
-
-    HandleFinger(fingers[i]);
-  }
-
-  // for (var i = 0; i < fingers.proximal)
-}
-
-function HandleFinger(finger) {
-  // console.log(finger);
-  // console.log(finger.tipPosition);
-  // console.log("XMax: " + rawXMax);
-  // console.log("XMin: " + rawXMin);
-  // console.log("YMax: " + rawYMax);
-  // console.log("YMin: " + rawYMin);
-
-  for (var i = 0; i <= 3; i++) {
-    // console.log(finger.bones[i]);
-    HandleBone(finger.bones[i]);
-  }
-
-  x = finger.tipPosition[0];
-  y = finger.tipPosition[1];
-  z = finger.tipPosition[2];
-
   if (x < rawXMin) {
     rawXMin = x;
   }
@@ -76,61 +38,74 @@ function HandleFinger(finger) {
 
   y = (((window.innerWidth - 0) * (y - rawYMin)) / (rawYMax - rawYMin));
 
+  return [x,y];
+}
+
+function HandleFrame(frame) {
+  if (frame.hands.length == 1){
+    var hand = frame.hands[0];
+
+    HandleHand(hand);
+  }
+}
+
+function HandleHand(hand) {
+  var fingers = hand.fingers;
+
+  for (var i = 0; i < fingers.length; i++) {
+    // if (fingers[i].type == 1) {
+    //   HandleFinger(fingers[i]);
+    // }
+
+    HandleFinger(fingers[i]);
+  }
+}
+
+function HandleFinger(finger) {
+  // console.log(finger);
+  // console.log(finger.tipPosition);
+  // console.log("XMax: " + rawXMax);
+  // console.log("XMin: " + rawXMin);
+  // console.log("YMax: " + rawYMax);
+  // console.log("YMin: " + rawYMin);
+
+  for (var i = 0; i <= 3; i++) {
+    // console.log(finger.bones[i]);
+    HandleBone(finger.bones[i]);
+  }
+
+  x = finger.tipPosition[0];
+  y = finger.tipPosition[1];
+  z = finger.tipPosition[2];
+
+  [x, y] = TransformCoordinates(x, y);
+
   // circle(x, window.innerHeight - y, z);
 }
 
 function HandleBone(bone) {
   // console.log(bone);
+  console.log("-----");
 
-  x = bone.nextJoint[0];
-  y = bone.nextJoint[1];
-  z = bone.nextJoint[2];
+  xt = bone.nextJoint[0];
+  yt = bone.nextJoint[1];
+  zt = bone.nextJoint[2];
 
-  xBase = bone.prevJoint[0];
-  yBase = bone.prevJoint[1];
-  zBase = bone.prevJoint[2];
+  xb = bone.prevJoint[0];
+  yb = bone.prevJoint[1];
+  zb = bone.prevJoint[2];
 
-  // var a = bone.prevJoint[0];
-  // var b = bone.prevJoint[1];
-  // var c = bone.prevJoint[2];
-  //
-  // if (bone.nextJoint[0] < rawXMin) {
-  //   rawXMin = bone.nextJoint[0];
-  // }
-  //
-  // if (bone.prevJoint[0] > rawXMax) {
-  //   rawXMax = bone.prevJoint[0];
-  // }
-  //
-  // if (bone.nextJoint[2] < rawYMin) {
-  //   rawYMin = bone.nextJoint[1];
-  // }
-  //
-  // if (bone.prevJoint[1] > rawYMax) {
-  //   rawYMax = bone.prevJoint[1];
-  // }
+  [xt, yt] = TransformCoordinates(xt, yt);
+  [xb, yb] = TransformCoordinates(xb, yb);
 
+  console.log("xb:" + xb);
+  console.log("xt:" + xt);
 
+  circle(xt, window.innerHeight - yt, zt);
+  // strokeWeight(4);
+  circle(xb, window.innerHeight - yb, zb);
 
-  // console.log(x);
-  // console.log(y);
-  // console.log(z);
-
-  x = (((window.innerWidth - 0) * (x - rawXMin)) / (rawXMax - rawXMin));
-
-  y = (((window.innerWidth - 0) * (y - rawYMin)) / (rawYMax - rawYMin));
-
-  xBase = (((window.innerWidth - 0) * (xBase - rawXMin)) / (rawXMax - rawXMin));
-
-  yBase = (((window.innerWidth - 0) * (yBase - rawYMin)) / (rawYMax - rawYMin));
-
-  console.log("x " + x);
-  console.log("xBase " + xBase);
-
-  circle(x, window.innerHeight - y, z);
-  //
-  // line(x, window.innerHeight - y, window.innerHeight - bone.prevJoint[0], window.innerHeight - bone.prevJoint[1]);
-  line(x, window.innerHeight - y, z, xBase, window.innerHeight - yBase, zBase);
+  line(xt, window.innerHeight - yt, zt, xb, window.innerHeight - yb, zb);
 }
 
 Leap.loop(controllerOptions, function(frame)
