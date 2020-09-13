@@ -38,7 +38,7 @@ function TransformCoordinates(x,y) {
 
   x = (((window.innerWidth - 0) * (x - rawXMin)) / (rawXMax - rawXMin));
 
-  y = (((window.innerWidth - 0) * (y - rawYMin)) / (rawYMax - rawYMin));
+  y = (((window.innerHeight - 0) * (y - rawYMin)) / (rawYMax - rawYMin));
 
   return [x,y];
 }
