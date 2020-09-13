@@ -61,7 +61,7 @@ function HandleHand(hand) {
 
 function HandleFinger(finger) {
   for (var i = 0; i < finger.bones.length; i++) {
-    HandleBone(finger.bones[i]);
+    HandleBone(finger.bones[i], finger.bones[i].type);
   }
 
   x = finger.tipPosition[0];
@@ -73,9 +73,7 @@ function HandleFinger(finger) {
   // circle(x, window.innerHeight - y, z);
 }
 
-function HandleBone(bone) {
-  console.log("-----");
-
+function HandleBone(bone, boneType) {
   xt = bone.nextJoint[0];
   yt = bone.nextJoint[1];
   zt = bone.nextJoint[2];
@@ -86,6 +84,16 @@ function HandleBone(bone) {
 
   [xt, yt] = TransformCoordinates(xt, yt);
   [xb, yb] = TransformCoordinates(xb, yb);
+
+  if (boneType == 0) {
+    strokeWeight(8);
+  } else if (boneType == 1) {
+    strokeWeight(6);
+  } else if (boneType == 2) {
+    strokeWeight(4);
+  } else {
+    strokeWeight(2);
+  }
 
   line(xt, window.innerHeight - yt, xb, window.innerHeight - yb, zt, zb);
 }
