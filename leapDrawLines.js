@@ -54,24 +54,27 @@ function HandleFrame(frame) {
 function HandleHand(hand) {
   var fingers = hand.fingers;
 
-  for (var i = 0; i < fingers.length; i++) {
-    HandleFinger(fingers[i]);
+  for (var i = 3; i >= 0; i--) {     // For each bone
+    for (var j = 0; j < 5; j++) {   // For each finger
+      // HandleFinger(fingers[i]);
+      HandleBone(fingers[j].bones[i], fingers[j].bones[i].type);
+    }
   }
 }
 
-function HandleFinger(finger) {
-  for (var i = 0; i < finger.bones.length; i++) {
-    HandleBone(finger.bones[i], finger.bones[i].type);
-  }
-
-  x = finger.tipPosition[0];
-  y = finger.tipPosition[1];
-  z = finger.tipPosition[2];
-
-  [x, y] = TransformCoordinates(x, y);
-
-  // circle(x, window.innerHeight - y, z);
-}
+// function HandleFinger(finger) {
+//   for (var i = 0; i < finger.bones.length; i++) {
+//     HandleBone(finger.bones[i], finger.bones[i].type);
+//   }
+//
+//   x = finger.tipPosition[0];
+//   y = finger.tipPosition[1];
+//   z = finger.tipPosition[2];
+//
+//   [x, y] = TransformCoordinates(x, y);
+//
+//   // circle(x, window.innerHeight - y, z);
+// }
 
 function HandleBone(bone, boneType) {
   xt = bone.nextJoint[0];
@@ -87,12 +90,16 @@ function HandleBone(bone, boneType) {
 
   if (boneType == 0) {
     strokeWeight(8);
+    stroke(20);
   } else if (boneType == 1) {
     strokeWeight(6);
+    stroke(60);
   } else if (boneType == 2) {
     strokeWeight(4);
+    stroke(80);
   } else {
     strokeWeight(2);
+    stroke(100);
   }
 
   line(xt, window.innerHeight - yt, xb, window.innerHeight - yb, zt, zb);
