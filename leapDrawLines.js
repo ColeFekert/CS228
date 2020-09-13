@@ -13,6 +13,10 @@ var xBase = window.innerWidth / 2;
 var yBase = window.innerHeight / 2;
 var zBase = 0;
 
+function TransformCoordinates(x,y) {
+
+}
+
 function HandleFrame(frame) {
   if (frame.hands.length == 1){
     var hand = frame.hands[0];
@@ -48,25 +52,25 @@ function HandleFinger(finger) {
     HandleBone(finger.bones[i]);
   }
 
-  if (finger.tipPosition[0] < rawXMin) {
-    rawXMin = finger.tipPosition[0];
-  }
-
-  if (finger.tipPosition[0] > rawXMax) {
-    rawXMax = finger.tipPosition[0];
-  }
-
-  if (finger.tipPosition[1] < rawYMin) {
-    rawYMin = finger.tipPosition[1];
-  }
-
-  if (finger.tipPosition[1] > rawYMax) {
-    rawYMax = finger.tipPosition[1];
-  }
-
   x = finger.tipPosition[0];
   y = finger.tipPosition[1];
   z = finger.tipPosition[2];
+
+  if (x < rawXMin) {
+    rawXMin = x;
+  }
+
+  if (x > rawXMax) {
+    rawXMax = x;
+  }
+
+  if (y < rawYMin) {
+    rawYMin = y;
+  }
+
+  if (y > rawYMax) {
+    rawYMax = y;
+  }
 
   x = (((window.innerWidth - 0) * (x - rawXMin)) / (rawXMax - rawXMin));
 
