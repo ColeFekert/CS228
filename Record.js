@@ -95,16 +95,20 @@ function HandleBone(bone, boneType) {
 
   if (boneType == 0) {
     strokeWeight(8);
-    stroke(20);
+    // stroke(20);
+    stroke(0,255,0)
   } else if (boneType == 1) {
     strokeWeight(6);
-    stroke(60);
+    // stroke(60);
+    stroke(0,207,0)
   } else if (boneType == 2) {
     strokeWeight(4);
-    stroke(80);
+    // stroke(80);
+    stroke(0,158,0)
   } else {
     strokeWeight(2);
-    stroke(100);
+    // stroke(100);
+    stroke(0,115,0)
   }
 
   line(xt, window.innerHeight - yt, xb, window.innerHeight - yb, zt, zb);
