@@ -1,6 +1,6 @@
 var controllerOptions = {};
 
-var oneFrameOfData = nj.zeros([5,4]);
+var oneFrameOfData = nj.zeros([5,4,6]);
 
 var rawXMin = 9999;
 var rawXMax = 0;
@@ -107,9 +107,12 @@ function HandleBone(bone, boneType, fingerIndex, moreThanOneHand) {
   [xt, yt] = TransformCoordinates(xt, yt);
   [xb, yb] = TransformCoordinates(xb, yb);
 
-  var coordinateSum = xt + yt + zt + xb + yb + zb;
-
-  oneFrameOfData.set(fingerIndex, boneType, coordinateSum);
+  oneFrameOfData.set(fingerIndex, boneType, 0, xb);
+  oneFrameOfData.set(fingerIndex, boneType, 1, yb);
+  oneFrameOfData.set(fingerIndex, boneType, 2, zb);
+  oneFrameOfData.set(fingerIndex, boneType, 3, xt);
+  oneFrameOfData.set(fingerIndex, boneType, 4, xt);
+  oneFrameOfData.set(fingerIndex, boneType, 5, xt);
 
   if (moreThanOneHand) {
     if (boneType == 0) {
@@ -155,6 +158,7 @@ function HandleBone(bone, boneType, fingerIndex, moreThanOneHand) {
 function RecordData() {
   if (previousNumHands == 2 && currentNumHands == 1) {
     background(0)
+    console.log(oneFrameOfData.toString());
   }
 }
 
@@ -171,7 +175,5 @@ Leap.loop(controllerOptions, function(frame)
   // console.log("Prev: " + previousNumHands + " -- Curr: " + currentNumHands);
 
   previousNumHands = currentNumHands;
-
-  console.log(oneFrameOfData.toString());
 }
 );
