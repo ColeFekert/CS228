@@ -146,6 +146,12 @@ function HandleBone(bone, boneType, moreThanOneHand) {
   line(xt, window.innerHeight - yt, xb, window.innerHeight - yb, zt, zb);
 }
 
+function RecordData() {
+  if (previousNumHands == 2 && currentNumHands == 1) {
+    background(0)
+  }
+}
+
 Leap.loop(controllerOptions, function(frame)
 {
   currentNumHands = frame.hands.length;
@@ -153,6 +159,8 @@ Leap.loop(controllerOptions, function(frame)
   clear();
 
   HandleFrame(frame);
+
+  RecordData();
 
   // console.log("Prev: " + previousNumHands + " -- Curr: " + currentNumHands);
 
