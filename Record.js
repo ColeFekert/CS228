@@ -69,7 +69,7 @@ function HandleFrame(frame) {
 function HandleHand(hand, moreThanOneHand) {
   var fingers = hand.fingers;
 
-  for (var i = 0; i < 4; i += 1) {     // For each bone
+  for (var i = 3; i >= 0; i -= 1) {     // For each bone
     for (var j = 4; j >= 0; j -= 1) {   // For each finger
       // HandleFinger(fingers[i]);
       // console.log("finger: " + j);
