@@ -19,6 +19,9 @@ var xb = window.innerWidth / 2;
 var yb = window.innerHeight / 2;
 var zb = 0;
 
+var previousNumHands = 0;
+var currentNumHands = 0;
+
 function TransformCoordinates(x,y) {
   if (x < rawXMin) {
     rawXMin = x;
@@ -109,8 +112,12 @@ function HandleBone(bone, boneType) {
 
 Leap.loop(controllerOptions, function(frame)
 {
-  clear();
+  // clear();
+  //
+  // HandleFrame(frame);
 
-  HandleFrame(frame);
+  currentNumHands = frame.hands.length;
+
+  console.log("Prev: " + previousNumHands + " -- Curr: " + currentNumHands);
 }
 );
