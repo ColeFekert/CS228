@@ -1,5 +1,7 @@
 var controllerOptions = {};
 
+var oneFrameOfData = nj.zeros([5]);
+
 var rawXMin = 9999;
 var rawXMax = 0;
 var rawYMin = 9999;
@@ -154,16 +156,18 @@ function RecordData() {
 
 Leap.loop(controllerOptions, function(frame)
 {
-  currentNumHands = frame.hands.length;
+  // currentNumHands = frame.hands.length;
+  //
+  // clear();
+  //
+  // HandleFrame(frame);
+  //
+  // RecordData();
+  //
+  // // console.log("Prev: " + previousNumHands + " -- Curr: " + currentNumHands);
+  //
+  // previousNumHands = currentNumHands;
 
-  clear();
-
-  HandleFrame(frame);
-
-  RecordData();
-
-  // console.log("Prev: " + previousNumHands + " -- Curr: " + currentNumHands);
-
-  previousNumHands = currentNumHands;
+  console.log(oneFrameOfData.toString());
 }
 );
