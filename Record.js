@@ -1,6 +1,6 @@
 var controllerOptions = {};
 
-var oneFrameOfData = nj.zeros([5]);
+var oneFrameOfData = nj.zeros([5,4]);
 
 var rawXMin = 9999;
 var rawXMax = 0;
@@ -109,7 +109,7 @@ function HandleBone(bone, boneType, fingerIndex, moreThanOneHand) {
 
   var coordinateSum = xt + yt + zt + xb + yb + zb;
 
-  oneFrameOfData.set(fingerIndex, coordinateSum);
+  oneFrameOfData.set(fingerIndex, boneType, coordinateSum);
 
   if (moreThanOneHand) {
     if (boneType == 0) {
