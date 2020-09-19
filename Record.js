@@ -57,7 +57,7 @@ function HandleFrame(frame) {
 function HandleHand(hand) {
   var fingers = hand.fingers;
 
-  for (var i = 3; i >= 0; i -= 1) {     // For each bone
+  for (var i = 0; i < 4; i += 1) {     // For each bone
     for (var j = 4; j >= 0; j -= 1) {   // For each finger
       // HandleFinger(fingers[i]);
       // console.log("finger: " + j);
@@ -112,12 +112,14 @@ function HandleBone(bone, boneType) {
 
 Leap.loop(controllerOptions, function(frame)
 {
-  // clear();
-  //
-  // HandleFrame(frame);
-
   currentNumHands = frame.hands.length;
 
-  console.log("Prev: " + previousNumHands + " -- Curr: " + currentNumHands);
+  clear();
+
+  HandleFrame(frame);
+
+  // console.log("Prev: " + previousNumHands + " -- Curr: " + currentNumHands);
+
+  previousNumHands = currentNumHands;
 }
 );
