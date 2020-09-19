@@ -54,9 +54,11 @@ function HandleFrame(frame) {
 function HandleHand(hand) {
   var fingers = hand.fingers;
 
-  for (var i = 3; i >= 0; i--) {     // For each bone
-    for (var j = 0; j < 5; j++) {   // For each finger
+  for (var i = 3; i >= 0; i -= 1) {     // For each bone
+    for (var j = 4; j >= 0; j -= 1) {   // For each finger
       // HandleFinger(fingers[i]);
+      console.log("finger: " + j);
+      console.log("bone: " + i + "\n");
       HandleBone(fingers[j].bones[i], fingers[j].bones[i].type);
     }
   }
