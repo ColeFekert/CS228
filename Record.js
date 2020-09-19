@@ -76,7 +76,7 @@ function HandleHand(hand, moreThanOneHand) {
       // HandleFinger(fingers[i]);
       // console.log("finger: " + j);
       // console.log("bone: " + i + "\n");
-      HandleBone(fingers[j].bones[i], fingers[j].bones[i].type, moreThanOneHand);
+      HandleBone(fingers[j].bones[i], fingers[j].bones[i].type, j, moreThanOneHand);
     }
   }
 }
@@ -95,7 +95,7 @@ function HandleHand(hand, moreThanOneHand) {
 //   // circle(x, window.innerHeight - y, z);
 // }
 
-function HandleBone(bone, boneType, moreThanOneHand) {
+function HandleBone(bone, boneType, fingerIndex, moreThanOneHand) {
   xt = bone.nextJoint[0];
   yt = bone.nextJoint[1];
   zt = bone.nextJoint[2];
@@ -106,6 +106,10 @@ function HandleBone(bone, boneType, moreThanOneHand) {
 
   [xt, yt] = TransformCoordinates(xt, yt);
   [xb, yb] = TransformCoordinates(xb, yb);
+
+  var coordinateSum = xt + yt + zt + xb + yb + zb;
+
+  oneFrameOfData.set(fingerIndex, coordinateSum);
 
   if (moreThanOneHand) {
     if (boneType == 0) {
@@ -156,17 +160,17 @@ function RecordData() {
 
 Leap.loop(controllerOptions, function(frame)
 {
-  // currentNumHands = frame.hands.length;
-  //
-  // clear();
-  //
-  // HandleFrame(frame);
-  //
-  // RecordData();
-  //
-  // // console.log("Prev: " + previousNumHands + " -- Curr: " + currentNumHands);
-  //
-  // previousNumHands = currentNumHands;
+  currentNumHands = frame.hands.length;
+
+  clear();
+
+  HandleFrame(frame);
+
+  RecordData();
+
+  // console.log("Prev: " + previousNumHands + " -- Curr: " + currentNumHands);
+
+  previousNumHands = currentNumHands;
 
   console.log(oneFrameOfData.toString());
 }
