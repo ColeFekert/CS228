@@ -22,6 +22,8 @@ var zb = 0;
 var previousNumHands = 0;
 var currentNumHands = 0;
 
+var moreThanOneHand;
+
 function TransformCoordinates(x,y) {
   if (x < rawXMin) {
     rawXMin = x;
@@ -48,13 +50,23 @@ function TransformCoordinates(x,y) {
 
 function HandleFrame(frame) {
   if (frame.hands.length == 1){
+    moreThanOneHand = false;
+
     var hand = frame.hands[0];
 
-    HandleHand(hand);
+    HandleHand(hand, moreThanOneHand);
+  } else if (frame.hands.length > 1) {
+    moreThanOneHand = true;
+
+    var hand = frame.hands[0];
+
+    HandleHand(hand, moreThanOneHand);
+  } else {
+    moreThanOneHand = false;
   }
 }
 
-function HandleHand(hand) {
+function HandleHand(hand, moreThanOneHand) {
   var fingers = hand.fingers;
 
   for (var i = 0; i < 4; i += 1) {     // For each bone
@@ -62,7 +74,7 @@ function HandleHand(hand) {
       // HandleFinger(fingers[i]);
       // console.log("finger: " + j);
       // console.log("bone: " + i + "\n");
-      HandleBone(fingers[j].bones[i], fingers[j].bones[i].type);
+      HandleBone(fingers[j].bones[i], fingers[j].bones[i].type, moreThanOneHand);
     }
   }
 }
@@ -81,7 +93,7 @@ function HandleHand(hand) {
 //   // circle(x, window.innerHeight - y, z);
 // }
 
-function HandleBone(bone, boneType) {
+function HandleBone(bone, boneType, moreThanOneHand) {
   xt = bone.nextJoint[0];
   yt = bone.nextJoint[1];
   zt = bone.nextJoint[2];
@@ -93,22 +105,42 @@ function HandleBone(bone, boneType) {
   [xt, yt] = TransformCoordinates(xt, yt);
   [xb, yb] = TransformCoordinates(xb, yb);
 
-  if (boneType == 0) {
-    strokeWeight(8);
-    // stroke(20);
-    stroke(0,255,0)
-  } else if (boneType == 1) {
-    strokeWeight(6);
-    // stroke(60);
-    stroke(0,207,0)
-  } else if (boneType == 2) {
-    strokeWeight(4);
-    // stroke(80);
-    stroke(0,158,0)
+  if (moreThanOneHand) {
+    if (boneType == 0) {
+      strokeWeight(8);
+      // stroke(20);
+      stroke(255,0,0);
+    } else if (boneType == 1) {
+      strokeWeight(6);
+      // stroke(60);
+      stroke(207,0,0);
+    } else if (boneType == 2) {
+      strokeWeight(4);
+      // stroke(80);
+      stroke(158,0,0);
+    } else {
+      strokeWeight(2);
+      // stroke(100);
+      stroke(115,0,0);
+    }
   } else {
-    strokeWeight(2);
-    // stroke(100);
-    stroke(0,115,0)
+    if (boneType == 0) {
+      strokeWeight(8);
+      // stroke(20);
+      stroke(0,255,0);
+    } else if (boneType == 1) {
+      strokeWeight(6);
+      // stroke(60);
+      stroke(0,207,0);
+    } else if (boneType == 2) {
+      strokeWeight(4);
+      // stroke(80);
+      stroke(0,158,0);
+    } else {
+      strokeWeight(2);
+      // stroke(100);
+      stroke(0,115,0);
+    }
   }
 
   line(xt, window.innerHeight - yt, xb, window.innerHeight - yb, zt, zb);
