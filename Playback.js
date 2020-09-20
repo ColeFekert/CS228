@@ -42,8 +42,13 @@ function draw() {
   for (var i = 0; i < oneFrameOfData.shape[0]; i++) {
     for (var j = 0; j < oneFrameOfData.shape[1]; j++) {
       xStart = oneFrameOfData.get(i, j, 0);
+      yStart = oneFrameOfData.get(i, j, 1);
+      zStart = oneFrameOfData.get(i, j, 2);
+      xEnd = oneFrameOfData.get(i, j, 3);
+      yEnd = oneFrameOfData.get(i, j, 4);
+      zEnd = oneFrameOfData.get(i, j, 5);
 
-      console.log(xStart);
+      console.log(xStart, yStart, zStart, xEnd, yEnd, zEnd);
     }
   }
 
