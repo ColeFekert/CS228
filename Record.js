@@ -114,6 +114,13 @@ function HandleBone(bone, boneType, fingerIndex, moreThanOneHand) {
   oneFrameOfData.set(fingerIndex, boneType, 4, xt);
   oneFrameOfData.set(fingerIndex, boneType, 5, xt);
 
+  // oneFrameOfData.set(boneType, fingerIndex, 0, xb);
+  // oneFrameOfData.set(boneType, fingerIndex, 1, yb);
+  // oneFrameOfData.set(boneType, fingerIndex, 2, zb);
+  // oneFrameOfData.set(boneType, fingerIndex, 3, xt);
+  // oneFrameOfData.set(boneType, fingerIndex, 4, xt);
+  // oneFrameOfData.set(boneType, fingerIndex, 5, xt);
+
   if (moreThanOneHand) {
     if (boneType == 0) {
       strokeWeight(8);
