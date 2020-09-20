@@ -50,44 +50,43 @@ var xEnd = 0;
 var yEnd = 0;
 var zEnd = 0;
 
-// var xStart = window.innerWidth / 2;
-// var yStart = window.innerHeight / 2;
-// var zStart = 0;
-//
-// var xEnd = window.innerWidth / 2;
-// var yEnd = window.innerHeight / 2;
-// var zEnd = 0;
+var frameIndex = 0;
 
 function draw() {
   clear();
 
-  for (var i = 0; i < oneFrameOfData.shape[0]; i++) {
-    for (var j = 0; j < oneFrameOfData.shape[1]; j++) {
-      xStart = oneFrameOfData.get(i, j, 3);
-      yStart = oneFrameOfData.get(i, j, 4);
-      zStart = oneFrameOfData.get(i, j, 5);
-      xEnd = oneFrameOfData.get(i, j, 0);
-      yEnd = oneFrameOfData.get(i, j, 1);
-      zEnd = oneFrameOfData.get(i, j, 2);
+  if (frameIndex % 2 == 0) {
+    for (var i = 0; i < oneFrameOfData.shape[0]; i++) {
+      for (var j = 0; j < oneFrameOfData.shape[1]; j++) {
+        xStart = oneFrameOfData.get(i, j, 3);
+        yStart = oneFrameOfData.get(i, j, 4);
+        zStart = oneFrameOfData.get(i, j, 5);
+        xEnd = oneFrameOfData.get(i, j, 0);
+        yEnd = oneFrameOfData.get(i, j, 1);
+        zEnd = oneFrameOfData.get(i, j, 2);
 
-      // console.log(xStart, yStart, zStart, xEnd, yEnd, zEnd);
-      // line(xStart, yEnd, xEnd, yStart, zStart, zEnd);
-      line(xStart, window.innerHeight - yStart, xEnd, window.innerHeight - yEnd);
+        // console.log(xStart, yStart, zStart, xEnd, yEnd, zEnd);
+        // line(xStart, yEnd, xEnd, yStart, zStart, zEnd);
+        line(xStart, window.innerHeight - yStart, xEnd, window.innerHeight - yEnd);
+      }
+    }
+  } else {
+    for (var i = 0; i < anotherFrameOfData.shape[0]; i++) {
+      for (var j = 0; j < anotherFrameOfData.shape[1]; j++) {
+        xStart = anotherFrameOfData.get(i, j, 3);
+        yStart = anotherFrameOfData.get(i, j, 4);
+        zStart = anotherFrameOfData.get(i, j, 5);
+        xEnd = anotherFrameOfData.get(i, j, 0);
+        yEnd = anotherFrameOfData.get(i, j, 1);
+        zEnd = anotherFrameOfData.get(i, j, 2);
+
+        // console.log(xStart, yStart, zStart, xEnd, yEnd, zEnd);
+        // line(xStart, yEnd, xEnd, yStart, zStart, zEnd);
+        line(xStart, window.innerHeight - yStart, xEnd, window.innerHeight - yEnd);
+      }
     }
   }
 
-  for (var i = 0; i < anotherFrameOfData.shape[0]; i++) {
-    for (var j = 0; j < anotherFrameOfData.shape[1]; j++) {
-      xStart = anotherFrameOfData.get(i, j, 3);
-      yStart = anotherFrameOfData.get(i, j, 4);
-      zStart = anotherFrameOfData.get(i, j, 5);
-      xEnd = anotherFrameOfData.get(i, j, 0);
-      yEnd = anotherFrameOfData.get(i, j, 1);
-      zEnd = anotherFrameOfData.get(i, j, 2);
 
-      // console.log(xStart, yStart, zStart, xEnd, yEnd, zEnd);
-      // line(xStart, yEnd, xEnd, yStart, zStart, zEnd);
-      line(xStart, window.innerHeight - yStart, xEnd, window.innerHeight - yEnd);
-    }
-  }
+  frameIndex++;
 }
