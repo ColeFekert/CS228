@@ -19,8 +19,27 @@ oneFrameOfData = nj.array([[[ 145.51548,  53.33692,   47.7147, 145.51548, 145.51
         [ 154.14485, 356.46267,  -68.4994, 143.37722, 143.37722, 143.37722],
         [ 143.37722, 262.19621,  -82.5114,   132.264,   132.264,   132.264]]]);
 
+// Start and end variables for the tensor
+var xStart = 0;
+var yStart = 0;
+var zStart = 0;
+
+var xEnd = 0;
+var yEnd = 0;
+var zEnd = 0;
+
 function draw() {
   clear();
 
-  console.log("Potato");
+  for (i = 0; i <= 4; i++) {
+    for (j = 0; j <= 3; j++) {
+      xStart = oneFrameOfData.get(i, j, 0);
+      yStart = oneFrameOfData.get(i, j, 1);
+      zStart = oneFrameOfData.get(i, j, 2);
+      xEnd = oneFrameOfData.get(i, j, 3);
+      yEnd = oneFrameOfData.get(i, j, 4);
+      zEnd = oneFrameOfData.get(i, j, 5);
+    }
+  }
+  console.log(xStart + " , " + yStart + " , " + zStart + " , " + xEnd + " , " + yEnd + " , " + zEnd);
 }
