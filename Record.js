@@ -111,8 +111,8 @@ function HandleBone(bone, boneType, fingerIndex, moreThanOneHand) {
   oneFrameOfData.set(fingerIndex, boneType, 1, yb);
   oneFrameOfData.set(fingerIndex, boneType, 2, zb);
   oneFrameOfData.set(fingerIndex, boneType, 3, xt);
-  oneFrameOfData.set(fingerIndex, boneType, 4, xt);
-  oneFrameOfData.set(fingerIndex, boneType, 5, xt);
+  oneFrameOfData.set(fingerIndex, boneType, 4, yt);
+  oneFrameOfData.set(fingerIndex, boneType, 5, zt);
 
   // oneFrameOfData.set(boneType, fingerIndex, 0, xb);
   // oneFrameOfData.set(boneType, fingerIndex, 1, yb);
