@@ -51,11 +51,12 @@ var yEnd = 0;
 var zEnd = 0;
 
 var frameIndex = 0;
+var flipFlop = 0;
 
 function draw() {
   clear();
 
-  if (frameIndex % 2 == 0) {
+  if (flipFlop == 0) {
     for (var i = 0; i < oneFrameOfData.shape[0]; i++) {
       for (var j = 0; j < oneFrameOfData.shape[1]; j++) {
         xStart = oneFrameOfData.get(i, j, 3);
@@ -89,4 +90,13 @@ function draw() {
 
 
   frameIndex++;
+
+  if (frameIndex >= 100) {
+    frameIndex = 0;
+    if (flipFlop == 1) {
+      flipFlop = 0;
+    } else {
+      flipFlop = 1;
+    }
+  }
 }
