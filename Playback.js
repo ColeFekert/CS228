@@ -19,6 +19,28 @@ oneFrameOfData = nj.array([[[ 602.59699, 555.84592,   70.2729, 602.59699, 555.84
         [ 629.69854, 531.33351,  -53.0862, 594.67188, 477.68164,   -69.452],
         [ 594.67188, 477.68164,   -69.452, 558.00778, 393.54956,  -79.3267]]])
 
+var anotherFrameOfData = nj.array([[[ 165.86255, 487.95573,   75.4133, 165.86255, 487.95573,   75.4133],
+        [ 165.86255, 487.95573,   75.4133, 120.61346, 524.56189,   67.6358],
+        [ 120.61346, 524.56189,   67.6358,  90.10052, 548.39233,   59.9091],
+        [  90.10052, 548.39233,   59.9091,  68.70685, 567.22644,   60.6705]],
+       [[ 168.30176, 577.14933,   70.3597, 119.25678, 634.89589,   20.9731],
+        [ 119.25678, 634.89589,   20.9731,  88.83912, 629.02743,  -7.04671],
+        [  88.83912, 629.02743,  -7.04671,  72.86158, 606.89086,  -23.1581],
+        [  72.86158, 606.89086,  -23.1581,   62.4812, 581.76192,  -34.4111]],
+       [[ 175.90858, 593.07634,   62.0806, 136.09452, 654.11373,   9.10537],
+        [ 136.09452, 654.11373,   9.10537, 111.38532, 653.40828,  -31.2041],
+        [ 111.38532, 653.40828,  -31.2041,  97.04331, 629.26387,  -54.3242],
+        [  97.04331, 629.26387,  -54.3242,   87.9692, 602.13097,   -68.814]],
+       [[ 184.46601, 597.08813,   53.9508, 156.10655, 656.12932,   1.30337],
+        [ 156.10655, 656.12932,   1.30337, 132.18606, 645.96999,  -35.2326],
+        [ 132.18606, 645.96999,  -35.2326, 117.31197, 629.91894,  -57.5301],
+        [ 117.31197, 629.91894,  -57.5301, 107.31145, 614.39892,  -72.3173]],
+       [[ 193.91589, 573.22668,   46.0444, 174.65532, 639.00071,  -5.43355],
+        [ 174.65532, 639.00071,  -5.43355, 163.91112,  638.5317,  -38.8732],
+        [ 163.91112,  638.5317,  -38.8732, 157.47865, 631.88026,  -57.1015],
+        [ 157.47865, 631.88026,  -57.1015, 151.52256, 621.91861,  -72.9105]]]);
+
+
 // Start and end variables for the tensor
 var xStart = 0;
 var yStart = 0;
@@ -54,23 +76,18 @@ function draw() {
     }
   }
 
-  // for (var j = 3; j >= 0; j -= 1) {     // For each bone
-  //   for (var i = 4; i >= 0; i -= 1) {
-  //     xEnd = oneFrameOfData.get(i, j, 0);
-  //     yEnd = oneFrameOfData.get(i, j, 1);
-  //     zEnd = oneFrameOfData.get(i, j, 2);
-  //     xStart = oneFrameOfData.get(i, j, 3);
-  //     yStart = oneFrameOfData.get(i, j, 4);
-  //     zStart = oneFrameOfData.get(i, j, 5);
-  //
-  //     // console.log(xEnd);
-  //     // console.log(xStart);
-  //
-  //     line(xStart, yStart, xEnd, yEnd);
-  //     // line(xStart, window.innerHeight - yStart, xEnd, window.innerHeight - yEnd, zStart, zEnd);
-  //   }
-  // }
-  // console.log(xStart + " , " + yStart + " , " + zStart + " , " + xEnd + " , " + yEnd + " , " + zEnd);
+  for (var i = 0; i < anotherFrameOfData.shape[0]; i++) {
+    for (var j = 0; j < anotherFrameOfData.shape[1]; j++) {
+      xStart = anotherFrameOfData.get(i, j, 3);
+      yStart = anotherFrameOfData.get(i, j, 4);
+      zStart = anotherFrameOfData.get(i, j, 5);
+      xEnd = anotherFrameOfData.get(i, j, 0);
+      yEnd = anotherFrameOfData.get(i, j, 1);
+      zEnd = anotherFrameOfData.get(i, j, 2);
 
-
+      // console.log(xStart, yStart, zStart, xEnd, yEnd, zEnd);
+      // line(xStart, yEnd, xEnd, yStart, zStart, zEnd);
+      line(xStart, window.innerHeight - yStart, xEnd, window.innerHeight - yEnd);
+    }
+  }
 }
