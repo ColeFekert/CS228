@@ -1,14 +1,22 @@
+// Cole Fekert 2020
+// CS 228
+
+var trainingCompleted = false;
 
 function draw() {
   clear();
 
-  Train();
+  if (!trainingCompleted) {
+    Train();
+  }
 
   Test();
 }
 
 function Train() {
   console.log("I am being trained.");
+
+  trainingCompleted = true;
 }
 
 function Test() {
