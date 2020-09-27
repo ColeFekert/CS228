@@ -155,10 +155,12 @@ var irisData = nj.array([[	5.1	,	3.5	,	1.4	,	0.2	,	0	],
                         [	5.9	,	3	,	5.1	,	1.8	,	2	]]);
 
 var numSamples = irisData.shape[0];
+var numFeatures = irisData.shape[1] - 1;
 
 function draw() {
   console.log(numSamples);
-  
+  console.log(numFeatures);
+
   clear();
 
   if (!trainingCompleted) {
