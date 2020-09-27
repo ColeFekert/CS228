@@ -220,12 +220,12 @@ function Test() {
 
     predictedLabel = knnClassifier.classify(currentFeatures.tolist(), GotResults);
 
-    console.log("(PREDICTED LABEL): " + predictedLabel);
+    // console.log("(PREDICTED LABEL): " + predictedLabel);
 
     console.log("END ROW " + i + ".\n");
   }
 }
 
 function GotResults(err, result) {
-
+  console.log("(PREDICTED LABEL): " + result);
 }
