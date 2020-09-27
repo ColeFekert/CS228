@@ -163,6 +163,8 @@ var numFeatures = irisData.shape[1] - 1;
 var currentFeatures;
 var currentLabel;
 
+var predictedLabel;
+
 function draw() {
   clear();
 
@@ -200,9 +202,26 @@ function Train() {
 }
 
 function Test() {
-  // console.log("I am being tested.");
+  console.log("I am being tested.");
 
   for (var i = 1; i <= numSamples; i += 2) {
-    console.log(i + ": " + irisData.pick(i));
+    // console.log(i + ": " + irisData.pick(i));
+
+    console.log("\nSTART ROW " + i + ":");
+
+    console.log("(Sepal Length)" + ": " + currentFeatures.slice([0,1]));
+    console.log("(Sepal Width)" + ": " + currentFeatures.slice([1,2]));
+    console.log("(Petal Length)" + ": " + currentFeatures.slice([2,3]));
+    console.log("(Petal Width)" + ": " + currentFeatures.slice([3,4]));
+
+    currentLabel = irisData.pick(i).get(4);
+
+    console.log("(CLASS LABEL): " + currentLabel);
+
+    predictedLabel = knnClassifier.classify(currentFeatures.tolist())
+
+    console.log("(PREDICTED LABEL): " + predictedLabel);
+
+    console.log("END ROW " + i + ".\n");
   }
 }
