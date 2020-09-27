@@ -157,6 +157,9 @@ var irisData = nj.array([[	5.1	,	3.5	,	1.4	,	0.2	,	0	],
 var numSamples = irisData.shape[0];
 var numFeatures = irisData.shape[1] - 1;
 
+var currentFeatures;
+var currentLabel;
+
 function draw() {
   clear();
 
@@ -171,14 +174,17 @@ function Train() {
   console.log("I am being trained.");
 
   for (var i = 0; i <= numSamples - 1; i += 2) {
-    // console.log(i + ": " + irisData.pick(i));
+    currentFeatures = irisData.pick(i);
+
     console.log("\nSTART ROW " + i + ":");
 
-    console.log("(Sepal Length)" + ": " + irisData.pick(i).slice([0,1]));
-    console.log("(Sepal Width)" + ": " + irisData.pick(i).slice([1,2]));
-    console.log("(Petal Length)" + ": " + irisData.pick(i).slice([2,3]));
-    console.log("(Petal Width)" + ": " + irisData.pick(i).slice([3,4]));
-    console.log("(Species)" + ": " + irisData.pick(i).slice([4,5]));
+    console.log("(Sepal Length)" + ": " + currentFeatures.slice([0,1]));
+    console.log("(Sepal Width)" + ": " + currentFeatures.slice([1,2]));
+    console.log("(Petal Length)" + ": " + currentFeatures.slice([2,3]));
+    console.log("(Petal Width)" + ": " + currentFeatures.slice([3,4]));
+    // console.log("(Species)" + ": " + currentFeatures.slice([4,5]));
+
+    currentLabel = irisData.pick(i).get(4);
 
     console.log("END ROW " + i + ".\n");
   }
