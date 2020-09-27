@@ -171,7 +171,16 @@ function Train() {
   console.log("I am being trained.");
 
   for (var i = 0; i <= numSamples - 1; i += 2) {
-    console.log(i + ": " + irisData.pick(i));
+    // console.log(i + ": " + irisData.pick(i));
+    console.log("\nSTART ROW " + i + ":");
+
+    console.log("(Sepal Length)" + ": " + irisData.pick(i).slice([0,1]));
+    console.log("(Sepal Width)" + ": " + irisData.pick(i).slice([1,2]));
+    console.log("(Petal Length)" + ": " + irisData.pick(i).slice([2,3]));
+    console.log("(Petal Width)" + ": " + irisData.pick(i).slice([3,4]));
+    console.log("(Species)" + ": " + irisData.pick(i).slice([4,5]));
+
+    console.log("END ROW " + i + ".\n");
   }
 
 
