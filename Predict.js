@@ -170,7 +170,7 @@ function draw() {
     Train();
   }
 
-  // Test();
+  Test();
 }
 
 function Train() {
@@ -196,9 +196,13 @@ function Train() {
   }
 
 
-  // trainingCompleted = true;
+  trainingCompleted = true;
 }
 
 function Test() {
   // console.log("I am being tested.");
+
+  for (var i = 1; i <= numSamples; i += 2) {
+    console.log(i + ": " + irisData.pick(i));
+  }
 }
