@@ -165,6 +165,8 @@ var currentLabel;
 
 var predictedLabel;
 
+var testingSampleIndex = 1;
+
 function draw() {
   clear();
 
@@ -204,17 +206,19 @@ function Train() {
 function Test() {
   console.log("I am being tested.");
 
-  for (var i = 1; i <= numSamples; i += 2) {
+  // for (var i = 1; i <= numSamples; i += 2) {
     // console.log(i + ": " + irisData.pick(i));
 
-    console.log("\nSTART ROW " + i + ":");
+
+
+    console.log("\nSTART ROW " + testingSampleIndex + ":");
 
     console.log("(Sepal Length)" + ": " + currentFeatures.slice([0,1]));
     console.log("(Sepal Width)" + ": " + currentFeatures.slice([1,2]));
     console.log("(Petal Length)" + ": " + currentFeatures.slice([2,3]));
     console.log("(Petal Width)" + ": " + currentFeatures.slice([3,4]));
 
-    currentLabel = irisData.pick(i).get(4);
+    currentLabel = irisData.pick(testingSampleIndex).get(4);
 
     console.log("(CLASS LABEL): " + currentLabel);
 
@@ -222,10 +226,10 @@ function Test() {
 
     // console.log("(PREDICTED LABEL): " + predictedLabel);
 
-    console.log("END ROW " + i + ".\n");
-  }
+    console.log("END ROW " + testingSampleIndex + ".\n");
+  // }
 }
 
 function GotResults(err, result) {
-  console.log("(PREDICTED LABEL): " + result.label);
+  console.log("(PREDICTED LABEL) @ " + testingSampleIndex + ": " + result.label);
 }
