@@ -218,10 +218,14 @@ function Test() {
 
     console.log("(CLASS LABEL): " + currentLabel);
 
-    predictedLabel = knnClassifier.classify(currentFeatures.tolist())
+    predictedLabel = knnClassifier.classify(currentFeatures.tolist(), GotResults);
 
     console.log("(PREDICTED LABEL): " + predictedLabel);
 
     console.log("END ROW " + i + ".\n");
   }
+}
+
+function GotResults(err, result) {
+
 }
