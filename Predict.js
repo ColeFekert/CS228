@@ -194,7 +194,7 @@ function Train() {
     console.log("END ROW " + i + ".\n");
 
 
-    knnClassifier.addExample(currentFeatures.tolist(), i);
+    knnClassifier.addExample(currentFeatures.tolist(), currentLabel);
   }
 
 
@@ -227,5 +227,5 @@ function Test() {
 }
 
 function GotResults(err, result) {
-  console.log("(PREDICTED LABEL): " + result);
+  console.log("(PREDICTED LABEL): " + result.label);
 }
