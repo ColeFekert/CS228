@@ -1,6 +1,9 @@
 // Cole Fekert 2020
 // CS 228
 
+// K-Nearest Neighbors Classifier
+const knnClassifier = m15.knnClassifier();
+
 var trainingCompleted = false;
 
 var irisData = nj.array([[	5.1	,	3.5	,	1.4	,	0.2	,	0	],
