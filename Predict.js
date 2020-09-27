@@ -168,9 +168,14 @@ function draw() {
 }
 
 function Train() {
-  // console.log("I am being trained.");
+  console.log("I am being trained.");
 
-  trainingCompleted = true;
+  for (var i = 0; i <= numSamples; i += 2) {
+    console.log(i);
+  }
+
+
+  // trainingCompleted = true;
 }
 
 function Test() {
