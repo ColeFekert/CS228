@@ -2,7 +2,7 @@
 // CS 228
 
 // K-Nearest Neighbors Classifier
-const knnClassifier = m15.knnClassifier();
+const knnClassifier = ml5.KNNClassifier();
 
 var trainingCompleted = false;
 
@@ -190,6 +190,9 @@ function Train() {
     currentLabel = irisData.pick(i).get(4);
 
     console.log("END ROW " + i + ".\n");
+
+
+    knnClassifier.addExample(currentFeatures.tolist(), i);
   }
 
 
