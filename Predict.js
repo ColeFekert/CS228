@@ -178,22 +178,22 @@ function draw() {
 }
 
 function Train() {
-  console.log("I am being trained.");
+  // console.log("I am being trained.");
 
   for (var i = 0; i <= numSamples - 1; i += 2) {
     currentFeatures = irisData.pick(i);
 
-    console.log("\nSTART ROW " + i + ":");
+    // console.log("\nSTART ROW " + i + ":");
 
-    console.log("(Sepal Length)" + ": " + currentFeatures.slice([0,1]));
-    console.log("(Sepal Width)" + ": " + currentFeatures.slice([1,2]));
-    console.log("(Petal Length)" + ": " + currentFeatures.slice([2,3]));
-    console.log("(Petal Width)" + ": " + currentFeatures.slice([3,4]));
-    // console.log("(Species)" + ": " + currentFeatures.slice([4,5]));
+    // console.log("(Sepal Length)" + ": " + currentFeatures.slice([0,1]));
+    // console.log("(Sepal Width)" + ": " + currentFeatures.slice([1,2]));
+    // console.log("(Petal Length)" + ": " + currentFeatures.slice([2,3]));
+    // console.log("(Petal Width)" + ": " + currentFeatures.slice([3,4]));
+    // // console.log("(Species)" + ": " + currentFeatures.slice([4,5]));
 
     currentLabel = irisData.pick(i).get(4);
 
-    console.log("END ROW " + i + ".\n");
+    // console.log("END ROW " + i + ".\n");
 
 
     knnClassifier.addExample(currentFeatures.slice([0,2]).tolist(), currentLabel);
@@ -204,34 +204,34 @@ function Train() {
 }
 
 function Test() {
-  console.log("I am being tested.");
+  // console.log("I am being tested.");
 
-  // console.log(i + ": " + irisData.pick(i));
+  // // console.log(i + ": " + irisData.pick(i));
 
-  console.log("\nSTART ROW " + testingSampleIndex + ":");
+  // console.log("\nSTART ROW " + testingSampleIndex + ":");
 
   currentFeatures = irisData.pick(testingSampleIndex);
 
-  console.log("(Sepal Length): " + currentFeatures.slice([0,1]));
-  console.log("(Sepal Width): " + currentFeatures.slice([1,2]));
-  console.log("(Petal Length): " + currentFeatures.slice([2,3]));
-  console.log("(Petal Width): " + currentFeatures.slice([3,4]));
+  // console.log("(Sepal Length): " + currentFeatures.slice([0,1]));
+  // console.log("(Sepal Width): " + currentFeatures.slice([1,2]));
+  // console.log("(Petal Length): " + currentFeatures.slice([2,3]));
+  // console.log("(Petal Width): " + currentFeatures.slice([3,4]));
 
   currentLabel = irisData.pick(testingSampleIndex).get(4);
 
-  console.log("(CLASS LABEL): " + currentLabel);
+  // console.log("(CLASS LABEL): " + currentLabel);
 
-  console.log("Visualizing Features: " + currentFeatures.slice([0,2]))
+  // console.log("Visualizing Features: " + currentFeatures.slice([0,2]))
 
   predictedLabel = knnClassifier.classify(currentFeatures.slice([0,2]).tolist(), GotResults);
 
-  // console.log("(PREDICTED LABEL): " + predictedLabel);
+  // // console.log("(PREDICTED LABEL): " + predictedLabel);
 
-  console.log("END ROW " + testingSampleIndex + ".\n");
+  // console.log("END ROW " + testingSampleIndex + ".\n");
 }
 
 function GotResults(err, result) {
-  console.log("(PREDICTED LABEL) @ " + testingSampleIndex + ": " + result.label);
+  // console.log("(PREDICTED LABEL) @ " + testingSampleIndex + ": " + result.label);
 
   testingSampleIndex += 2;
 
