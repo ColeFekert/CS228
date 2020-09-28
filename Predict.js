@@ -180,8 +180,11 @@ function draw() {
 }
 
 function DrawCircles() {
-  for (var i = 0; i <= numSamples; i++) {
-    console.log(i);
+  for (var i = 0; i < numSamples; i++) {
+    var x = irisData.pick(i).get(0);
+    var y = irisData.pick(i).get(1);
+
+    console.log("(i: " + i + ") x = " + x + " | y = " + y);
   }
 }
 
