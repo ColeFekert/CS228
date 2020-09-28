@@ -232,4 +232,10 @@ function Test() {
 
 function GotResults(err, result) {
   console.log("(PREDICTED LABEL) @ " + testingSampleIndex + ": " + result.label);
+
+  testingSampleIndex += 2;
+
+  if (testingSampleIndex > 150) {
+    testingSampleIndex = 1;
+  }
 }
