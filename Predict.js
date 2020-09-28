@@ -175,6 +175,14 @@ function draw() {
   }
 
   Test();
+
+  DrawCircles();
+}
+
+function DrawCircles() {
+  for (var i = 0; i <= numSamples; i++) {
+    console.log(i);
+  }
 }
 
 function Train() {
