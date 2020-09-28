@@ -167,6 +167,8 @@ var predictedLabel;
 
 var testingSampleIndex = 1;
 
+var predictedClassLabels = nj.zeros([1, numSamples]);
+
 function draw() {
   clear();
 
@@ -203,7 +205,9 @@ function DrawCircles() {
     }
 
 
-    circle(x * 111, y * 111, 9);
+    // circle(x * 111, y * 111, 9);
+
+    console.log(predictedClassLabels);
   }
 }
 
@@ -262,6 +266,8 @@ function Test() {
 
 function GotResults(err, result) {
   // console.log("(PREDICTED LABEL) @ " + testingSampleIndex + ": " + result.label);
+
+  predictedClassLabels[testingSampleIndex] = result.label;
 
   testingSampleIndex += 2;
 
