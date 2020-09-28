@@ -209,9 +209,9 @@ function Test() {
   // for (var i = 1; i <= numSamples; i += 2) {
     // console.log(i + ": " + irisData.pick(i));
 
-
-
     console.log("\nSTART ROW " + testingSampleIndex + ":");
+
+    currentFeatures = irisData.pick(testingSampleIndex);
 
     console.log("(Sepal Length)" + ": " + currentFeatures.slice([0,1]));
     console.log("(Sepal Width)" + ": " + currentFeatures.slice([1,2]));
