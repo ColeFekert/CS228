@@ -196,7 +196,7 @@ function Train() {
     console.log("END ROW " + i + ".\n");
 
 
-    knnClassifier.addExample(currentFeatures.tolist(), currentLabel);
+    knnClassifier.addExample(currentFeatures.slice([0,2]).tolist(), currentLabel);
   }
 
 
@@ -206,28 +206,28 @@ function Train() {
 function Test() {
   console.log("I am being tested.");
 
-  // for (var i = 1; i <= numSamples; i += 2) {
-    // console.log(i + ": " + irisData.pick(i));
+  // console.log(i + ": " + irisData.pick(i));
 
-    console.log("\nSTART ROW " + testingSampleIndex + ":");
+  console.log("\nSTART ROW " + testingSampleIndex + ":");
 
-    currentFeatures = irisData.pick(testingSampleIndex);
+  currentFeatures = irisData.pick(testingSampleIndex);
 
-    console.log("(Sepal Length)" + ": " + currentFeatures.slice([0,1]));
-    console.log("(Sepal Width)" + ": " + currentFeatures.slice([1,2]));
-    console.log("(Petal Length)" + ": " + currentFeatures.slice([2,3]));
-    console.log("(Petal Width)" + ": " + currentFeatures.slice([3,4]));
+  console.log("(Sepal Length): " + currentFeatures.slice([0,1]));
+  console.log("(Sepal Width): " + currentFeatures.slice([1,2]));
+  console.log("(Petal Length): " + currentFeatures.slice([2,3]));
+  console.log("(Petal Width): " + currentFeatures.slice([3,4]));
 
-    currentLabel = irisData.pick(testingSampleIndex).get(4);
+  currentLabel = irisData.pick(testingSampleIndex).get(4);
 
-    console.log("(CLASS LABEL): " + currentLabel);
+  console.log("(CLASS LABEL): " + currentLabel);
 
-    predictedLabel = knnClassifier.classify(currentFeatures.tolist(), GotResults);
+  console.log("Visualizing Features: " + currentFeatures.slice([0,2]))
 
-    // console.log("(PREDICTED LABEL): " + predictedLabel);
+  predictedLabel = knnClassifier.classify(currentFeatures.slice([0,2]).tolist(), GotResults);
 
-    console.log("END ROW " + testingSampleIndex + ".\n");
-  // }
+  // console.log("(PREDICTED LABEL): " + predictedLabel);
+
+  console.log("END ROW " + testingSampleIndex + ".\n");
 }
 
 function GotResults(err, result) {
