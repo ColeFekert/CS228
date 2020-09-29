@@ -167,10 +167,12 @@ var predictedLabel;
 
 var testingSampleIndex = 1;
 
-var predictedClassLabels = nj.zeros([1, numSamples]);
+var predictedClassLabels = nj.zeros(numSamples);
 
 function draw() {
   clear();
+
+  // console.log(predictedClassLabels);
 
   if (!trainingCompleted) {
     Train();
@@ -189,25 +191,33 @@ function DrawCircles() {
 
     // console.log("(i: " + i + ") x = " + x + " | y = " + y);
 
+
+
     if (i % 2 == 0) {
       stroke(0);
     } else {
+      // console.log("i : " + i + " - " + predictedClassLabels[i]);
+
       if (c == 0) {
         fill(255, 0, 0);
-        stroke(255, 0, 0);
       } else if (c == 1) {
         fill(0, 255, 0);
-        stroke(0, 255, 0);
       } else if (c == 2) {
         fill(0, 0, 255);
+      }
+
+      if (predictedClassLabels[i] == 0) {
+        stroke(255, 0, 0);
+      } else if (predictedClassLabels[i] == 1) {
+        stroke(0, 255, 0);
+      } else if (predictedClassLabels[i] == 2) {
         stroke(0, 0, 255);
       }
     }
 
+    circle(x * 111, y * 111, 9);
 
-    // circle(x * 111, y * 111, 9);
-
-    console.log(predictedClassLabels);
+    // console.log(predictedClassLabels);
   }
 }
 
@@ -230,9 +240,12 @@ function Train() {
     // console.log("END ROW " + i + ".\n");
 
 
-    knnClassifier.addExample(currentFeatures.slice([0,2]).tolist(), currentLabel);
+    knnClassifier.addExample(currentFeatures.slice([0,4]).tolist(), currentLabel);
   }
 
+  for (var i = 0; i < numSamples; i++ ) {
+    predictedClassLabels[i] = 0;
+  }
 
   trainingCompleted = true;
 }
@@ -257,7 +270,7 @@ function Test() {
 
   // console.log("Visualizing Features: " + currentFeatures.slice([0,2]))
 
-  predictedLabel = knnClassifier.classify(currentFeatures.slice([0,2]).tolist(), GotResults);
+  predictedLabel = knnClassifier.classify(currentFeatures.slice([0,4]).tolist(), GotResults);
 
   // // console.log("(PREDICTED LABEL): " + predictedLabel);
 
@@ -267,7 +280,11 @@ function Test() {
 function GotResults(err, result) {
   // console.log("(PREDICTED LABEL) @ " + testingSampleIndex + ": " + result.label);
 
+  // console.log(predictedClassLabels);
   predictedClassLabels[testingSampleIndex] = result.label;
+
+  console.log(testingSampleIndex + " : " + result.label);
+  console.log(predictedClassLabels[testingSampleIndex]);
 
   testingSampleIndex += 2;
 
