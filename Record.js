@@ -1,7 +1,5 @@
 var controllerOptions = {};
 
-var oneFrameOfData = nj.zeros([5,4,6]);
-
 // Finger Vars
 var x = window.innerWidth / 2;
 var y = window.innerHeight / 2;
@@ -22,6 +20,9 @@ var currentNumHands = 0;
 var moreThanOneHand;
 
 var numSamples = 2;
+var currentSample = 0;
+
+var framesOfData = nj.zeros([5, 4, 6, numSamples]);
 
 
 function HandleFrame(frame) {
@@ -81,12 +82,12 @@ function HandleBone(bone, boneType, fingerIndex, moreThanOneHand, interactionBox
   // console.log("Normalized Prev Joint: " + normalizedPrevJoint);
   // console.log("Normalized Next Joint: " + normalizedNextJoint);
 
-  oneFrameOfData.set(fingerIndex, boneType, 0, xb);
-  oneFrameOfData.set(fingerIndex, boneType, 1, yb);
-  oneFrameOfData.set(fingerIndex, boneType, 2, zb);
-  oneFrameOfData.set(fingerIndex, boneType, 3, xt);
-  oneFrameOfData.set(fingerIndex, boneType, 4, yt);
-  oneFrameOfData.set(fingerIndex, boneType, 5, zt);
+  framesOfData.set(fingerIndex, boneType, 0, currentSample, xb);
+  framesOfData.set(fingerIndex, boneType, 1, currentSample, yb);
+  framesOfData.set(fingerIndex, boneType, 2, currentSample, zb);
+  framesOfData.set(fingerIndex, boneType, 3, currentSample, xt);
+  framesOfData.set(fingerIndex, boneType, 4, currentSample, yt);
+  framesOfData.set(fingerIndex, boneType, 5, currentSample, zt);
 
 
   var canvasPrevX = window.innerWidth * normalizedPrevJoint[0];
@@ -95,7 +96,7 @@ function HandleBone(bone, boneType, fingerIndex, moreThanOneHand, interactionBox
   var canvasNextX = window.innerWidth * normalizedNextJoint[0];
   var canvasNextY = window.innerHeight * (1 - normalizedNextJoint[1]);
 
-  // console.log(oneFrameOfData);
+  // console.log(framesOfData);
 
   // console.log("X Range: " + window.innerWidth + " | Y Range: " + window.innerHeight);
   // console.log("CanvasPrevX: " + canvasPrevX + " | CanvasPrevY: " + canvasPrevY);
@@ -105,12 +106,12 @@ function HandleBone(bone, boneType, fingerIndex, moreThanOneHand, interactionBox
   // [xb, yb] = TransformCoordinates(xb, yb);
 
 
-  // oneFrameOfData.set(boneType, fingerIndex, 0, xb);
-  // oneFrameOfData.set(boneType, fingerIndex, 1, yb);
-  // oneFrameOfData.set(boneType, fingerIndex, 2, zb);
-  // oneFrameOfData.set(boneType, fingerIndex, 3, xt);
-  // oneFrameOfData.set(boneType, fingerIndex, 4, xt);
-  // oneFrameOfData.set(boneType, fingerIndex, 5, xt);
+  // framesOfData.set(boneType, fingerIndex, 0, xb);
+  // framesOfData.set(boneType, fingerIndex, 1, yb);
+  // framesOfData.set(boneType, fingerIndex, 2, zb);
+  // framesOfData.set(boneType, fingerIndex, 3, xt);
+  // framesOfData.set(boneType, fingerIndex, 4, xt);
+  // framesOfData.set(boneType, fingerIndex, 5, xt);
 
   if (moreThanOneHand) {
     if (boneType == 0) {
@@ -158,7 +159,7 @@ function HandleBone(bone, boneType, fingerIndex, moreThanOneHand, interactionBox
 function RecordData() {
   if (previousNumHands == 2 && currentNumHands == 1) {
     background(0)
-    console.log(oneFrameOfData.toString());
+    console.log(framesOfData.toString());
   }
 }
 
