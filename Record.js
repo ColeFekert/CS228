@@ -159,7 +159,7 @@ function HandleBone(bone, boneType, fingerIndex, moreThanOneHand, interactionBox
 function RecordData() {
   if (previousNumHands == 2 && currentNumHands == 1) {
     background(0)
-    console.log(framesOfData.toString());
+    console.log(framesOfData.pick(null, null, null, 1).toString());
   }
 }
 
