@@ -118,9 +118,9 @@ function HandleBone(bone, boneType, fingerIndex, moreThanOneHand, interactionBox
   var canvasNextX = window.innerWidth * normalizedNextJoint[0];
   var canvasNextY = window.innerHeight * (1 - normalizedNextJoint[1]);
 
-  console.log("X Range: " + window.innerWidth + " | Y Range: " + window.innerHeight);
-  console.log("CanvasPrevX: " + canvasPrevX + " | CanvasPrevY: " + canvasPrevY);
-  console.log("CanvasNextX: " + canvasNextX + " | CanvasNextY: " + canvasNextY);
+  // console.log("X Range: " + window.innerWidth + " | Y Range: " + window.innerHeight);
+  // console.log("CanvasPrevX: " + canvasPrevX + " | CanvasPrevY: " + canvasPrevY);
+  // console.log("CanvasNextX: " + canvasNextX + " | CanvasNextY: " + canvasNextY);
 
   // [xt, yt] = TransformCoordinates(xt, yt);
   // [xb, yb] = TransformCoordinates(xb, yb);
@@ -183,7 +183,7 @@ function HandleBone(bone, boneType, fingerIndex, moreThanOneHand, interactionBox
 function RecordData() {
   if (previousNumHands == 2 && currentNumHands == 1) {
     background(0)
-    console.log(oneFrameOfData.toString());
+    // console.log(oneFrameOfData.toString());
   }
 }
 
