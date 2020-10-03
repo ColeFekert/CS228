@@ -40,6 +40,26 @@ var anotherFrameOfData = nj.array([[[ 165.86255, 487.95573,   75.4133, 165.86255
         [ 163.91112,  638.5317,  -38.8732, 157.47865, 631.88026,  -57.1015],
         [ 157.47865, 631.88026,  -57.1015, 151.52256, 621.91861,  -72.9105]]]);
 
+var yetAnotherFrameOfData = nj.array([[[ 0.62762, 0.25858, 0.71935, 0.62762, 0.25858, 0.71935],
+        [ 0.62762, 0.25858, 0.71935,  0.4134, 0.27889, 0.62929],
+        [  0.4134, 0.27889, 0.62929, 0.27848, 0.29551, 0.52113],
+        [ 0.27848, 0.29551, 0.52113, 0.17724, 0.30471, 0.48387]],
+       [[ 0.63364, 0.36406,  0.7206, 0.46608, 0.46139, 0.29942],
+        [ 0.46608, 0.46139, 0.29942, 0.34964, 0.52685, 0.08097],
+        [ 0.34964, 0.52685, 0.08097,  0.2895, 0.53932,       0],
+        [  0.2895, 0.53932,       0, 0.25222, 0.53344,       0]],
+       [[ 0.67661, 0.39144, 0.68813, 0.55508,  0.4981, 0.26521],
+        [ 0.55508,  0.4981, 0.26521,   0.478, 0.59568,       0],
+        [   0.478, 0.59568,       0, 0.43322, 0.62529,       0],
+        [ 0.43322, 0.62529,       0, 0.40528, 0.62862,       0]],
+       [[ 0.72523, 0.40554,  0.6549, 0.65554, 0.51259, 0.25962],
+        [ 0.65554, 0.51259, 0.25962,  0.6039, 0.60945,       0],
+        [  0.6039, 0.60945,       0, 0.57037, 0.64611,       0],
+        [ 0.57037, 0.64611,       0, 0.54763,  0.6569,       0]],
+       [[  0.7812, 0.38834, 0.61604, 0.75047, 0.50421, 0.25149],
+        [ 0.75047, 0.50421, 0.25149, 0.79633, 0.58534, 0.04914],
+        [ 0.79633, 0.58534, 0.04914, 0.81892, 0.61857,       0],
+        [ 0.81892, 0.61857,       0, 0.83635, 0.63855,       0]]]);
 
 // Start and end variables for the tensor
 var xStart = 0;
@@ -72,18 +92,26 @@ function draw() {
       }
     }
   } else {
-    for (var i = 0; i < anotherFrameOfData.shape[0]; i++) {
-      for (var j = 0; j < anotherFrameOfData.shape[1]; j++) {
-        xStart = anotherFrameOfData.get(i, j, 3);
-        yStart = anotherFrameOfData.get(i, j, 4);
-        zStart = anotherFrameOfData.get(i, j, 5);
-        xEnd = anotherFrameOfData.get(i, j, 0);
-        yEnd = anotherFrameOfData.get(i, j, 1);
-        zEnd = anotherFrameOfData.get(i, j, 2);
+    for (var i = 0; i < yetAnotherFrameOfData.shape[0]; i++) {
+      for (var j = 0; j < yetAnotherFrameOfData.shape[1]; j++) {
+        xStart = yetAnotherFrameOfData.get(i, j, 3);
+        yStart = yetAnotherFrameOfData.get(i, j, 4);
+        zStart = yetAnotherFrameOfData.get(i, j, 5);
+        xEnd = yetAnotherFrameOfData.get(i, j, 0);
+        yEnd = yetAnotherFrameOfData.get(i, j, 1);
+        zEnd = yetAnotherFrameOfData.get(i, j, 2);
 
         // console.log(xStart, yStart, zStart, xEnd, yEnd, zEnd);
         // line(xStart, yEnd, xEnd, yStart, zStart, zEnd);
-        line(xStart, window.innerHeight - yStart, xEnd, window.innerHeight - yEnd);
+        var canvasPrevX = window.innerWidth * xEnd;
+        var canvasPrevY = window.innerHeight * (1 - yEnd);
+
+        var canvasNextX = window.innerWidth * xStart;
+        var canvasNextY = window.innerHeight * (1 - yStart);
+
+        line(canvasNextX, canvasNextY, canvasPrevX, canvasPrevY, zStart, zEnd);
+
+        // line(xStart, window.innerHeight - yStart, xEnd, window.innerHeight - yEnd);
       }
     }
   }
