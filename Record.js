@@ -51,24 +51,26 @@ function TransformCoordinates(x,y) {
 }
 
 function HandleFrame(frame) {
+  var interactionBox = frame.interactionBox();
+
   if (frame.hands.length == 1){
     moreThanOneHand = false;
 
     var hand = frame.hands[0];
 
-    HandleHand(hand, moreThanOneHand);
+    HandleHand(hand, moreThanOneHand, interactionBox);
   } else if (frame.hands.length > 1) {
     moreThanOneHand = true;
 
     var hand = frame.hands[0];
 
-    HandleHand(hand, moreThanOneHand);
+    HandleHand(hand, moreThanOneHand, interactionBox);
   } else {
     moreThanOneHand = false;
   }
 }
 
-function HandleHand(hand, moreThanOneHand) {
+function HandleHand(hand, moreThanOneHand, interactionBox) {
   var fingers = hand.fingers;
 
   for (var i = 3; i >= 0; i -= 1) {     // For each bone
@@ -76,7 +78,7 @@ function HandleHand(hand, moreThanOneHand) {
       // HandleFinger(fingers[i]);
       // console.log("finger: " + j);
       // console.log("bone: " + i + "\n");
-      HandleBone(fingers[j].bones[i], fingers[j].bones[i].type, j, moreThanOneHand);
+      HandleBone(fingers[j].bones[i], fingers[j].bones[i].type, j, moreThanOneHand, interactionBox);
     }
   }
 }
@@ -95,7 +97,7 @@ function HandleHand(hand, moreThanOneHand) {
 //   // circle(x, window.innerHeight - y, z);
 // }
 
-function HandleBone(bone, boneType, fingerIndex, moreThanOneHand) {
+function HandleBone(bone, boneType, fingerIndex, moreThanOneHand, interactionBox) {
   xt = bone.nextJoint[0];
   yt = bone.nextJoint[1];
   zt = bone.nextJoint[2];
