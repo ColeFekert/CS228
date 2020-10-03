@@ -1,5 +1,7 @@
 var controllerOptions = {};
 
+nj.config.printThreshold = 1000;
+
 // Finger Vars
 var x = window.innerWidth / 2;
 var y = window.innerHeight / 2;
@@ -169,7 +171,7 @@ function RecordData() {
     background(0)
     // console.log(framesOfData.pick(null, null, null, currentSample).toString());
     // console.log(framesOfData.pick(null, null, null, 0).toString());
-    console.log(framesOfData.pick(null, null, null, 1).toString());
+    // console.log(framesOfData.pick(null, null, null, 1).toString());
     console.log(framesOfData.toString());
 
     console.log(currentSample);
