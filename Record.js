@@ -2,10 +2,10 @@ var controllerOptions = {};
 
 var oneFrameOfData = nj.zeros([5,4,6]);
 
-var rawXMin = 9999;
-var rawXMax = 0;
-var rawYMin = 9999;
-var rawYMax = 0;
+// var rawXMin = 9999;
+// var rawXMax = 0;
+// var rawYMin = 9999;
+// var rawYMax = 0;
 
 // Finger Vars
 var x = window.innerWidth / 2;
@@ -26,29 +26,29 @@ var currentNumHands = 0;
 
 var moreThanOneHand;
 
-function TransformCoordinates(x,y) {
-  if (x < rawXMin) {
-    rawXMin = x;
-  }
-
-  if (x > rawXMax) {
-    rawXMax = x;
-  }
-
-  if (y < rawYMin) {
-    rawYMin = y;
-  }
-
-  if (y > rawYMax) {
-    rawYMax = y;
-  }
-
-  x = (((window.innerWidth - 0) * (x - rawXMin)) / (rawXMax - rawXMin));
-
-  y = (((window.innerHeight - 0) * (y - rawYMin)) / (rawYMax - rawYMin));
-
-  return [x,y];
-}
+// function TransformCoordinates(x,y) {
+//   if (x < rawXMin) {
+//     rawXMin = x;
+//   }
+//
+//   if (x > rawXMax) {
+//     rawXMax = x;
+//   }
+//
+//   if (y < rawYMin) {
+//     rawYMin = y;
+//   }
+//
+//   if (y > rawYMax) {
+//     rawYMax = y;
+//   }
+//
+//   x = (((window.innerWidth - 0) * (x - rawXMin)) / (rawXMax - rawXMin));
+//
+//   y = (((window.innerHeight - 0) * (y - rawYMin)) / (rawYMax - rawYMin));
+//
+//   return [x,y];
+// }
 
 function HandleFrame(frame) {
   var interactionBox = frame.interactionBox;
@@ -109,11 +109,21 @@ function HandleBone(bone, boneType, fingerIndex, moreThanOneHand, interactionBox
   var normalizedPrevJoint = interactionBox.normalizePoint(bone.prevJoint, true);
   var normalizedNextJoint = interactionBox.normalizePoint(bone.nextJoint, true);
 
-  console.log("Normalized Prev Joint: " + normalizedPrevJoint);
-  console.log("Normalized Next Joint: " + normalizedNextJoint);
+  // console.log("Normalized Prev Joint: " + normalizedPrevJoint);
+  // console.log("Normalized Next Joint: " + normalizedNextJoint);
 
-  [xt, yt] = TransformCoordinates(xt, yt);
-  [xb, yb] = TransformCoordinates(xb, yb);
+  var canvasPrevX = window.innerWidth * normalizedPrevJoint[0];
+  var canvasPrevY = window.innerHeight * (1 - normalizedPrevJoint[1]);
+
+  var canvasNextX = window.innerWidth * normalizedNextJoint[0];
+  var canvasNextY = window.innerHeight * (1 - normalizedNextJoint[1]);
+
+  console.log("X Range: " + window.innerWidth + " | Y Range: " + window.innerHeight);
+  console.log("CanvasPrevX: " + canvasPrevX + " | CanvasPrevY: " + canvasPrevY);
+  console.log("CanvasNextX: " + canvasNextX + " | CanvasNextY: " + canvasNextY);
+
+  // [xt, yt] = TransformCoordinates(xt, yt);
+  // [xb, yb] = TransformCoordinates(xb, yb);
 
   oneFrameOfData.set(fingerIndex, boneType, 0, xb);
   oneFrameOfData.set(fingerIndex, boneType, 1, yb);
