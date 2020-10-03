@@ -51,7 +51,7 @@ function TransformCoordinates(x,y) {
 }
 
 function HandleFrame(frame) {
-  var interactionBox = frame.interactionBox();
+  var interactionBox = frame.interactionBox;
 
   if (frame.hands.length == 1){
     moreThanOneHand = false;
@@ -105,6 +105,12 @@ function HandleBone(bone, boneType, fingerIndex, moreThanOneHand, interactionBox
   xb = bone.prevJoint[0];
   yb = bone.prevJoint[1];
   zb = bone.prevJoint[2];
+
+  var normalizedPrevJoint = interactionBox.normalizePoint(bone.prevJoint, true);
+  var normalizedNextJoint = interactionBox.normalizePoint(bone.nextJoint, true);
+
+  console.log("Normalized Prev Joint: " + normalizedPrevJoint);
+  console.log("Normalized Next Joint: " + normalizedNextJoint);
 
   [xt, yt] = TransformCoordinates(xt, yt);
   [xb, yb] = TransformCoordinates(xb, yb);
