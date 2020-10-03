@@ -2,11 +2,6 @@ var controllerOptions = {};
 
 var oneFrameOfData = nj.zeros([5,4,6]);
 
-// var rawXMin = 9999;
-// var rawXMax = 0;
-// var rawYMin = 9999;
-// var rawYMax = 0;
-
 // Finger Vars
 var x = window.innerWidth / 2;
 var y = window.innerHeight / 2;
@@ -25,30 +20,6 @@ var previousNumHands = 0;
 var currentNumHands = 0;
 
 var moreThanOneHand;
-
-// function TransformCoordinates(x,y) {
-//   if (x < rawXMin) {
-//     rawXMin = x;
-//   }
-//
-//   if (x > rawXMax) {
-//     rawXMax = x;
-//   }
-//
-//   if (y < rawYMin) {
-//     rawYMin = y;
-//   }
-//
-//   if (y > rawYMax) {
-//     rawYMax = y;
-//   }
-//
-//   x = (((window.innerWidth - 0) * (x - rawXMin)) / (rawXMax - rawXMin));
-//
-//   y = (((window.innerHeight - 0) * (y - rawYMin)) / (rawYMax - rawYMin));
-//
-//   return [x,y];
-// }
 
 function HandleFrame(frame) {
   var interactionBox = frame.interactionBox;
@@ -82,20 +53,6 @@ function HandleHand(hand, moreThanOneHand, interactionBox) {
     }
   }
 }
-
-// function HandleFinger(finger) {
-//   for (var i = 0; i < finger.bones.length; i++) {
-//     HandleBone(finger.bones[i], finger.bones[i].type);
-//   }
-//
-//   x = finger.tipPosition[0];
-//   y = finger.tipPosition[1];
-//   z = finger.tipPosition[2];
-//
-//   [x, y] = TransformCoordinates(x, y);
-//
-//   // circle(x, window.innerHeight - y, z);
-// }
 
 function HandleBone(bone, boneType, fingerIndex, moreThanOneHand, interactionBox) {
   var normalizedPrevJoint = interactionBox.normalizePoint(bone.prevJoint, true);
