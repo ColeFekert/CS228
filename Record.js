@@ -21,6 +21,9 @@ var currentNumHands = 0;
 
 var moreThanOneHand;
 
+var numSamples = 2;
+
+
 function HandleFrame(frame) {
   var interactionBox = frame.interactionBox;
 
