@@ -42,9 +42,7 @@ function DrawCircles() {
 }
 
 function Train() {
-  // console.log("train0 :" + train0);
-  // console.log("test :" + test);
-
+  // Train0.js
   for (var i = 0; i < train0.shape[3]; i++) {
     // console.log(train0.pick(null, null, null, i).toString());
     features = train0.pick(null, null, null, i);
@@ -52,14 +50,22 @@ function Train() {
     features = features.reshape(120);
 
     console.log(features.toString());
+
+    knnClassifier.addExample(features.tolist(), 0);
   }
 
-  knnClassifier.addExample(features.tolist(), 0);
+  // Train1.js
+  for (var i = 0; i < train1.shape[3]; i++) {
+    // console.log(train0.pick(null, null, null, i).toString());
+    features = train0.pick(null, null, null, i);
 
-  // console.log("shape[0] :" + train0.shape[0]);
-  // console.log("shape[1] :" + train0.shape[1]);
-  // console.log("shape[2] :" + train0.shape[2]);
-  // console.log("shape[3] :" + train0.shape[3]);
+    features = features.reshape(120);
+
+    console.log(features.toString());
+
+    knnClassifier.addExample(features.tolist(), 0);
+  }
+
 
   trainingCompleted = true;
 }
