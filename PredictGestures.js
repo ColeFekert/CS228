@@ -25,8 +25,8 @@ var testingSampleIndex = 0;
 function draw() {
   clear();
 
-  numSamples = train0.shape[0];
-  numFeatures = train0.shape[1] - 1;
+  // numSamples = train0.shape[0];
+  // numFeatures = train0.shape[1] - 1;
 
   // console.log(predictedClassLabels);
 
@@ -43,27 +43,27 @@ function DrawCircles() {
 
 function Train() {
   // Train0.js
-  for (var i = 0; i < train0.shape[3]; i++) {
+  for (var i = 0; i < train5.shape[3]; i++) {
     // console.log(train0.pick(null, null, null, i).toString());
-    features = train0.pick(null, null, null, i);
+    features = train5.pick(null, null, null, i);
 
     features = features.reshape(120);
 
     console.log(features.toString());
 
-    knnClassifier.addExample(features.tolist(), 0);
+    knnClassifier.addExample(features.tolist(), 5);
   }
 
   // Train1.js
-  for (var i = 0; i < train1.shape[3]; i++) {
+  for (var i = 0; i < train6.shape[3]; i++) {
     // console.log(train0.pick(null, null, null, i).toString());
-    features = train0.pick(null, null, null, i);
+    features = train6.pick(null, null, null, i);
 
     features = features.reshape(120);
 
     console.log(features.toString());
 
-    knnClassifier.addExample(features.tolist(), 1);
+    knnClassifier.addExample(features.tolist(), 6);
   }
 
 
