@@ -9,7 +9,10 @@ var trainingCompleted = false;
 var numSamples;
 var numFeatures;
 
-var currentFeatures;
+
+var features;           // For training
+
+var currentFeatures;    // For testing
 var currentLabel;
 
 var predictedLabel;
@@ -44,15 +47,14 @@ function Train() {
 
   for (var i = 0; i < train0.shape[3]; i++) {
     // console.log(train0.pick(null, null, null, i).toString());
-
-    var features = train0.pick(null, null, null, i);
+    features = train0.pick(null, null, null, i);
 
     features = features.reshape(120);
 
     console.log(features.toString());
   }
 
-  knnClassifier.addExample(features, 0);
+  knnClassifier.addExample(features.tolist(), 0);
 
   // console.log("shape[0] :" + train0.shape[0]);
   // console.log("shape[1] :" + train0.shape[1]);
@@ -77,5 +79,9 @@ function GotResults(err, result) {
 
   testingSampleIndex++;
 
+  console.log(test.shape[3]);
 
+  if (testingSampleIndex >= test.shape[3]) {
+    testingSampleIndex = 0;
+  }
 }
