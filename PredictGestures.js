@@ -63,7 +63,7 @@ function Train() {
 
     console.log(features.toString());
 
-    knnClassifier.addExample(features.tolist(), 0);
+    knnClassifier.addExample(features.tolist(), 1);
   }
 
 
