@@ -77,7 +77,7 @@ function Train() {
 }
 
 function Test() {
-  currentFeatures = train6.pick(null, null, null, testingSampleIndex);
+  currentFeatures = test.pick(null, null, null, testingSampleIndex);
 
   currentLabel = 0;
 
@@ -87,7 +87,7 @@ function Test() {
 }
 
 function GotResults(err, result) {
-  console.log(testingSampleIndex + " : " + result.label);
+  console.log("Index: " + testingSampleIndex + " | Predicted Gesture: " + result.label);
 
   testingSampleIndex++;
 
