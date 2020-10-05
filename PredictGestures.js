@@ -19,6 +19,8 @@ var predictedLabel;
 
 var testingSampleIndex = 0;
 
+var count = 0;
+
 // var predictedClassLabels = nj.zeros(numSamples);
 
 
@@ -52,6 +54,8 @@ function Train() {
     console.log(features.toString());
 
     knnClassifier.addExample(features.tolist(), 5);
+    count++;
+    console.log(count + " Example(s) Added")
   }
 
   // Train1.js
@@ -61,9 +65,11 @@ function Train() {
 
     features = features.reshape(120);
 
-    console.log(features.toString());
+    // console.log(features.toString());
 
     knnClassifier.addExample(features.tolist(), 6);
+    count++;
+    console.log(count + " Example(s) Added")
   }
 
 
@@ -85,7 +91,7 @@ function GotResults(err, result) {
 
   testingSampleIndex++;
 
-  console.log(test.shape[3]);
+  // console.log(test.shape[3]);      THIS = 2
 
   if (testingSampleIndex >= test.shape[3]) {
     testingSampleIndex = 0;
