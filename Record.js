@@ -159,7 +159,17 @@ function HandleBone(bone, boneType, fingerIndex, moreThanOneHand, interactionBox
 }
 
 function RecordData() {
-  if (previousNumHands == 1 && currentNumHands == 2) {
+  // if (previousNumHands == 1 && currentNumHands == 2) {
+  //   currentSample++;
+  //
+  //   if (currentSample >= numSamples) {
+  //     currentSample = 0;
+  //   }
+  // }
+
+  if (currentNumHands == 2) {
+    console.log(framesOfData.toString());
+
     currentSample++;
 
     if (currentSample >= numSamples) {
