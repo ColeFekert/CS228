@@ -77,7 +77,7 @@ function Train() {
 }
 
 function Test() {
-  currentFeatures = test.pick(null, null, null, testingSampleIndex);
+  currentFeatures = train6.pick(null, null, null, testingSampleIndex);
 
   currentLabel = 0;
 
