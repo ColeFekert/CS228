@@ -25,6 +25,8 @@ var controllerOptions;
 
 var moreThanOneHand;
 
+var oneFrameOfData = nj.zeros([5, 4, 6]);
+
 // var predictedClassLabels = nj.zeros(numSamples);
 
 
@@ -42,13 +44,7 @@ Leap.loop(controllerOptions, function(frame) {
   }
 
   HandleFrame(frame);
-
-  Test();
 });
-
-function DrawCircles() {
-
-}
 
 function Train() {
   // Train0.js
@@ -88,7 +84,7 @@ function Test() {
 
   currentLabel = 0;
 
-  console.log(currentFeatures.toString());
+  // console.log(currentFeatures.toString());
 
   predictedLabel = knnClassifier.classify(currentFeatures.tolist(), GotResults);
 }
@@ -108,18 +104,26 @@ function GotResults(err, result) {
 function HandleFrame(frame) {
   var interactionBox = frame.interactionBox;
 
-  if (frame.hands.length == 1){
+  if (frame.hands.length == 1) {
     moreThanOneHand = false;
 
     var hand = frame.hands[0];
 
     HandleHand(hand, moreThanOneHand, interactionBox);
+
+    console.log(oneFrameOfData.toString);
+
+    Test();
   } else if (frame.hands.length > 1) {
     moreThanOneHand = true;
 
     var hand = frame.hands[0];
 
     HandleHand(hand, moreThanOneHand, interactionBox);
+
+    console.log(oneFrameOfData.toString);
+
+    Test();
   } else {
     moreThanOneHand = false;
   }
@@ -162,12 +166,12 @@ function HandleBone(bone, boneType, fingerIndex, moreThanOneHand, interactionBox
   // console.log("Normalized Prev Joint: " + normalizedPrevJoint);
   // console.log("Normalized Next Joint: " + normalizedNextJoint);
 
-  // framesOfData.set(fingerIndex, boneType, 0, currentSample, xb);
-  // framesOfData.set(fingerIndex, boneType, 1, currentSample, yb);
-  // framesOfData.set(fingerIndex, boneType, 2, currentSample, zb);
-  // framesOfData.set(fingerIndex, boneType, 3, currentSample, xt);
-  // framesOfData.set(fingerIndex, boneType, 4, currentSample, yt);
-  // framesOfData.set(fingerIndex, boneType, 5, currentSample, zt);
+  oneFrameOfData.set(fingerIndex, boneType, 0, xb);
+  oneFrameOfData.set(fingerIndex, boneType, 1, yb);
+  oneFrameOfData.set(fingerIndex, boneType, 2, zb);
+  oneFrameOfData.set(fingerIndex, boneType, 3, xt);
+  oneFrameOfData.set(fingerIndex, boneType, 4, yt);
+  oneFrameOfData.set(fingerIndex, boneType, 5, zt);
 
 
   var canvasPrevX = window.innerWidth * normalizedPrevJoint[0];
@@ -175,23 +179,6 @@ function HandleBone(bone, boneType, fingerIndex, moreThanOneHand, interactionBox
 
   var canvasNextX = window.innerWidth * normalizedNextJoint[0];
   var canvasNextY = window.innerHeight * (1 - normalizedNextJoint[1]);
-
-  // console.log(framesOfData);
-
-  // console.log("X Range: " + window.innerWidth + " | Y Range: " + window.innerHeight);
-  // console.log("CanvasPrevX: " + canvasPrevX + " | CanvasPrevY: " + canvasPrevY);
-  // console.log("CanvasNextX: " + canvasNextX + " | CanvasNextY: " + canvasNextY);
-
-  // [xt, yt] = TransformCoordinates(xt, yt);
-  // [xb, yb] = TransformCoordinates(xb, yb);
-
-
-  // framesOfData.set(boneType, fingerIndex, 0, xb);
-  // framesOfData.set(boneType, fingerIndex, 1, yb);
-  // framesOfData.set(boneType, fingerIndex, 2, zb);
-  // framesOfData.set(boneType, fingerIndex, 3, xt);
-  // framesOfData.set(boneType, fingerIndex, 4, xt);
-  // framesOfData.set(boneType, fingerIndex, 5, xt);
 
   // Draws both hands as gray
   if (boneType == 0) {
