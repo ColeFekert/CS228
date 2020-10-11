@@ -21,11 +21,13 @@ var testingSampleIndex = 0;
 
 var count = 0;
 
+var controllerOptions;
+
 // var predictedClassLabels = nj.zeros(numSamples);
 
 
 // function draw() {
-Leap.loop(controllerOptions, function(frame)) {
+Leap.loop(controllerOptions, function(frame) {
   clear();
 
   // numSamples = train0.shape[0];
