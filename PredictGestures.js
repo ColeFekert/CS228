@@ -17,7 +17,7 @@ var currentLabel;
 
 var predictedLabel;
 
-var testingSampleIndex = 0;
+// var testingSampleIndex = 0;
 
 var count = 0;
 
@@ -80,7 +80,7 @@ function Train() {
 }
 
 function Test() {
-  currentFeatures = oneFrameOfData.pick(null, null, null, testingSampleIndex);
+  currentFeatures = oneFrameOfData.pick(null, null, null, 0);
 
   currentLabel = 0;
 
@@ -92,13 +92,13 @@ function Test() {
 function GotResults(err, result) {
   console.log("Predicted Gesture: " + result.label);
 
-  testingSampleIndex++;
+  // testingSampleIndex++;
 
   // console.log(test.shape[3]);      THIS = 2
 
-  if (testingSampleIndex >= oneFrameOfData.shape[3]) {
-    testingSampleIndex = 0;
-  }
+  // if (testingSampleIndex >= oneFrameOfData.shape[3]) {
+  //   testingSampleIndex = 0;
+  // }
 }
 
 function HandleFrame(frame) {
