@@ -54,7 +54,7 @@ function Train() {
 
     features = features.reshape(120);
 
-    console.log(features.toString());
+    // console.log(features.toString());
 
     knnClassifier.addExample(features.tolist(), 5);
     count++;
@@ -80,7 +80,7 @@ function Train() {
 }
 
 function Test() {
-  currentFeatures = test.pick(null, null, null, testingSampleIndex);
+  currentFeatures = oneFrameOfData.pick(null, null, null, testingSampleIndex);
 
   currentLabel = 0;
 
@@ -90,13 +90,13 @@ function Test() {
 }
 
 function GotResults(err, result) {
-  console.log("Index: " + testingSampleIndex + " | Predicted Gesture: " + result.label);
+  console.log("Predicted Gesture: " + result.label);
 
   testingSampleIndex++;
 
   // console.log(test.shape[3]);      THIS = 2
 
-  if (testingSampleIndex >= test.shape[3]) {
+  if (testingSampleIndex >= oneFrameOfData.shape[3]) {
     testingSampleIndex = 0;
   }
 }
@@ -111,7 +111,7 @@ function HandleFrame(frame) {
 
     HandleHand(hand, moreThanOneHand, interactionBox);
 
-    console.log(oneFrameOfData.toString);
+    // console.log(oneFrameOfData.toString);
 
     Test();
   } else if (frame.hands.length > 1) {
@@ -121,7 +121,7 @@ function HandleFrame(frame) {
 
     HandleHand(hand, moreThanOneHand, interactionBox);
 
-    console.log(oneFrameOfData.toString);
+    // console.log(oneFrameOfData.toString);
 
     Test();
   } else {
