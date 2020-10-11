@@ -24,7 +24,8 @@ var count = 0;
 // var predictedClassLabels = nj.zeros(numSamples);
 
 
-function draw() {
+// function draw() {
+Leap.loop(controllerOptions, function(frame)) {
   clear();
 
   // numSamples = train0.shape[0];
@@ -37,7 +38,7 @@ function draw() {
   }
 
   Test();
-}
+});
 
 function DrawCircles() {
 
