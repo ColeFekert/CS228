@@ -83,6 +83,8 @@ function Train() {
 }
 
 function Test() {
+  CenterData();
+
   currentFeatures = oneFrameOfData.pick(null, null, null, 0);
 
   currentLabel = 0;
@@ -249,4 +251,10 @@ function HandleBone(bone, boneType, fingerIndex, moreThanOneHand, interactionBox
   line(canvasNextX, canvasNextY, canvasPrevX, canvasPrevY, zt, zb);
 
   // line(xt, window.innerHeight - yt, xb, window.innerHeight - yb, zt, zb);
+}
+
+function CenterData() {
+  xValues = oneFrameOfData.slice([],[],[0,6,3]);
+
+  console.log(xValues.shape);
 }
