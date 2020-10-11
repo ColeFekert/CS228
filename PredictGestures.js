@@ -85,6 +85,7 @@ function Train() {
 function Test() {
   CenterXData();
   CenterYData();
+  CenterZData();
 
   currentFeatures = oneFrameOfData.pick(null, null, null, 0);
 
@@ -297,7 +298,7 @@ function CenterYData() {
 
   var horizontalShift = (0.5 - currentMean);
 
-  console.log("before: " + currentMean);
+  // console.log("before: " + currentMean);
 
   for (var i = 0; i < 5; i++) {     // rows
     for (var j = 0; j < 4; j++) {   // columns
@@ -323,5 +324,41 @@ function CenterYData() {
 
   horizontalShift = (0.5 - currentMean);
 
-  console.log("after: " + currentMean);
+  // console.log("after: " + currentMean);
+}
+
+function CenterZData() {
+  var zValues = oneFrameOfData.slice([],[],[2,6,3]);
+
+  var currentMean = zValues.mean();
+
+  var horizontalShift = (0.5 - currentMean);
+
+  // console.log("before: " + currentMean);
+
+  for (var i = 0; i < 5; i++) {     // rows
+    for (var j = 0; j < 4; j++) {   // columns
+      // Top Z
+      var currentZ = oneFrameOfData.get(i, j, 2);
+
+      var shiftedZ = currentZ + horizontalShift;
+
+      oneFrameOfData.set(i, j, 2, shiftedZ);
+
+      // Bottom Z
+      currentZ = oneFrameOfData.get(i, j, 5);
+
+      shiftedZ = currentZ + horizontalShift;
+
+      oneFrameOfData.set(i, j, 5, shiftedZ);
+    }
+  }
+
+  yValues = oneFrameOfData.slice([],[],[2,6,3]);
+
+  currentMean = zValues.mean();
+
+  horizontalShift = (0.5 - currentMean);
+
+  // console.log("after: " + currentMean);
 }
