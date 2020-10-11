@@ -254,7 +254,9 @@ function HandleBone(bone, boneType, fingerIndex, moreThanOneHand, interactionBox
 }
 
 function CenterData() {
-  xValues = oneFrameOfData.slice([],[],[0,6,3]);
+  var xValues = oneFrameOfData.slice([],[],[0,6,3]);
 
-  console.log(xValues.shape);
+  var currentMean = xValues.mean();
+
+  console.log(currentMean);
 }
