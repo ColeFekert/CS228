@@ -83,7 +83,8 @@ function Train() {
 }
 
 function Test() {
-  CenterData();
+  CenterXData();
+  CenterYData();
 
   currentFeatures = oneFrameOfData.pick(null, null, null, 0);
 
@@ -253,7 +254,7 @@ function HandleBone(bone, boneType, fingerIndex, moreThanOneHand, interactionBox
   // line(xt, window.innerHeight - yt, xb, window.innerHeight - yb, zt, zb);
 }
 
-function CenterData() {
+function CenterXData() {
   var xValues = oneFrameOfData.slice([],[],[0,6,3]);
 
   var currentMean = xValues.mean();
@@ -261,7 +262,7 @@ function CenterData() {
   var horizontalShift = (0.5 - currentMean);
 
   // console.log("before: " + currentMean);
-  
+
   for (var i = 0; i < 5; i++) {     // rows
     for (var j = 0; j < 4; j++) {   // columns
       // Top X
@@ -287,4 +288,40 @@ function CenterData() {
   horizontalShift = (0.5 - currentMean);
 
   // console.log("after: " + currentMean);
+}
+
+function CenterYData() {
+  var yValues = oneFrameOfData.slice([],[],[1,6,3]);
+
+  var currentMean = yValues.mean();
+
+  var horizontalShift = (0.5 - currentMean);
+
+  console.log("before: " + currentMean);
+
+  for (var i = 0; i < 5; i++) {     // rows
+    for (var j = 0; j < 4; j++) {   // columns
+      // Top Y
+      var currentY = oneFrameOfData.get(i, j, 1);
+
+      var shiftedY = currentY + horizontalShift;
+
+      oneFrameOfData.set(i, j, 1, shiftedY);
+
+      // Bottom Y
+      currentY = oneFrameOfData.get(i, j, 4);
+
+      shiftedY = currentY + horizontalShift;
+
+      oneFrameOfData.set(i, j, 4, shiftedY);
+    }
+  }
+
+  yValues = oneFrameOfData.slice([],[],[1,6,3]);
+
+  currentMean = yValues.mean();
+
+  horizontalShift = (0.5 - currentMean);
+
+  console.log("after: " + currentMean);
 }
