@@ -27,6 +27,9 @@ var moreThanOneHand;
 
 var oneFrameOfData = nj.zeros([5, 4, 6]);
 
+var predictionCounter = 0;
+var predictionAccuracy = 0;
+
 // var predictedClassLabels = nj.zeros(numSamples);
 
 
@@ -91,6 +94,11 @@ function Test() {
 
 function GotResults(err, result) {
   console.log("Predicted Gesture: " + result.label);
+  predictionCounter++;
+
+  // predictionAccuracy  = ((predictionCounter - 1) * predictionAccuracy + (result.label == 5)) / predictionCounter;
+  //
+  // console.log("n: " + predictionCounter + " | m: " + predictionAccuracy + " | c: " + 5);
 
   // testingSampleIndex++;
 
