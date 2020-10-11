@@ -258,5 +258,33 @@ function CenterData() {
 
   var currentMean = xValues.mean();
 
-  console.log(currentMean);
+  var horizontalShift = (0.5 - currentMean);
+
+  // console.log("before: " + currentMean);
+  
+  for (var i = 0; i < 5; i++) {     // rows
+    for (var j = 0; j < 4; j++) {   // columns
+      // Top X
+      var currentX = oneFrameOfData.get(i, j, 0);
+
+      var shiftedX = currentX + horizontalShift;
+
+      oneFrameOfData.set(i, j, 0, shiftedX);
+
+      // Bottom X
+      currentX = oneFrameOfData.get(i, j, 3);
+
+      shiftedX = currentX + horizontalShift;
+
+      oneFrameOfData.set(i, j, 3, shiftedX);
+    }
+  }
+
+  xValues = oneFrameOfData.slice([],[],[0,6,3]);
+
+  currentMean = xValues.mean();
+
+  horizontalShift = (0.5 - currentMean);
+
+  // console.log("after: " + currentMean);
 }
