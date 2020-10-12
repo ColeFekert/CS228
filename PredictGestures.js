@@ -100,13 +100,15 @@ function GotResults(err, result) {
   console.log("Predicted Gesture: " + result.label);
   predictionCounter++;
 
-  // predictionAccuracy  = ((predictionCounter - 1) * predictionAccuracy + (result.label == 5)) / predictionCounter;
-  //
-  // console.log("n: " + predictionCounter + " | m: " + predictionAccuracy + " | c: " + 5);
+  var target = 6;
+
+  predictionAccuracy  = ((predictionCounter - 1) * predictionAccuracy + (result.label == target)) / predictionCounter;
+
+  console.log("n: " + predictionCounter + " | m: " + predictionAccuracy + " | c: " + target);
 
   // testingSampleIndex++;
 
-  // console.log(test.shape[3]);      THIS = 2
+  // console.log(test.shape[3]);     // THIS = 2
 
   // if (testingSampleIndex >= oneFrameOfData.shape[3]) {
   //   testingSampleIndex = 0;
