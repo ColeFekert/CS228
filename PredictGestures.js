@@ -50,6 +50,86 @@ Leap.loop(controllerOptions, function(frame) {
 });
 
 function Train() {
+  // train0Allison.js
+  for (var i = 0; i < train0.shape[3]; i++) {
+    // console.log(train0.pick(null, null, null, i).toString());
+    features = train0.pick(null, null, null, i);
+
+    features = features.reshape(120);
+
+    // console.log(features.toString());
+
+    knnClassifier.addExample(features.tolist(), 0);
+    count++;
+    console.log(count + " Train0 Example(s) Added")
+  }
+
+  count = 0;
+
+  // train1Bongard.js
+  for (var i = 0; i < train1.shape[3]; i++) {
+    // console.log(train0.pick(null, null, null, i).toString());
+    features = train1.pick(null, null, null, i);
+
+    features = features.reshape(120);
+
+    // console.log(features.toString());
+
+    knnClassifier.addExample(features.tolist(), 1);
+    count++;
+    console.log(count + " Train1 Example(s) Added")
+  }
+
+  count = 0;
+
+  // train2Banaszewski.js
+  for (var i = 0; i < train2.shape[3]; i++) {
+    // console.log(train0.pick(null, null, null, i).toString());
+    features = train2.pick(null, null, null, i);
+
+    features = features.reshape(120);
+
+    // console.log(features.toString());
+
+    knnClassifier.addExample(features.tolist(), 2);
+    count++;
+    console.log(count + " Train2 Example(s) Added")
+  }
+
+  count = 0;
+
+  // train3Beattie.js
+  for (var i = 0; i < train3.shape[3]; i++) {
+    // console.log(train0.pick(null, null, null, i).toString());
+    features = train3.pick(null, null, null, i);
+
+    features = features.reshape(120);
+
+    // console.log(features.toString());
+
+    knnClassifier.addExample(features.tolist(), 3);
+    count++;
+    console.log(count + " Train3 Example(s) Added")
+  }
+
+  count = 0;
+
+  // train4Faucher.js
+  for (var i = 0; i < train4.shape[3]; i++) {
+    // console.log(train0.pick(null, null, null, i).toString());
+    features = train4.pick(null, null, null, i);
+
+    features = features.reshape(120);
+
+    // console.log(features.toString());
+
+    knnClassifier.addExample(features.tolist(), 4);
+    count++;
+    console.log(count + " Train4 Example(s) Added")
+  }
+
+  count = 0;
+
   // Train5.js
   for (var i = 0; i < train5.shape[3]; i++) {
     // console.log(train0.pick(null, null, null, i).toString());
@@ -61,8 +141,10 @@ function Train() {
 
     knnClassifier.addExample(features.tolist(), 5);
     count++;
-    console.log(count + " Example(s) Added")
+    console.log(count + " Train5 Example(s) Added")
   }
+
+  count = 0;
 
   // Train6.js
   for (var i = 0; i < train6.shape[3]; i++) {
@@ -75,23 +157,58 @@ function Train() {
 
     knnClassifier.addExample(features.tolist(), 6);
     count++;
-    console.log(count + " Example(s) Added")
+    console.log(count + " Train6 Example(s) Added")
   }
 
-  // Train0.js
-  for (var i = 0; i < train0.shape[3]; i++) {
+  count = 0;
+
+  // train7Gagnon.js
+  for (var i = 0; i < train7.shape[3]; i++) {
     // console.log(train0.pick(null, null, null, i).toString());
-    features = train0.pick(null, null, null, i);
+    features = train7.pick(null, null, null, i);
 
     features = features.reshape(120);
 
     // console.log(features.toString());
 
-    knnClassifier.addExample(features.tolist(), 0);
+    knnClassifier.addExample(features.tolist(), 7);
     count++;
-    console.log(count + " Example(s) Added")
+    console.log(count + " Train7 Example(s) Added")
   }
 
+  count = 0;
+
+  // train8Timsina.js
+  for (var i = 0; i < train8.shape[3]; i++) {
+    // console.log(train0.pick(null, null, null, i).toString());
+    features = train8.pick(null, null, null, i);
+
+    features = features.reshape(120);
+
+    // console.log(features.toString());
+
+    knnClassifier.addExample(features.tolist(), 8);
+    count++;
+    console.log(count + " Train8 Example(s) Added")
+  }
+
+  count = 0;
+
+  // train9Croxford.js
+  for (var i = 0; i < train9.shape[3]; i++) {
+    // console.log(train0.pick(null, null, null, i).toString());
+    features = train9.pick(null, null, null, i);
+
+    features = features.reshape(120);
+
+    // console.log(features.toString());
+
+    knnClassifier.addExample(features.tolist(), 9);
+    count++;
+    console.log(count + " Train9 Example(s) Added")
+  }
+
+  count = 0;
 
   trainingCompleted = true;
 }
@@ -114,7 +231,7 @@ function GotResults(err, result) {
   console.log("Predicted Gesture: " + result.label);
   predictionCounter++;
 
-  var target = 0;
+  var target = 3;
 
   predictionAccuracy  = ((predictionCounter - 1) * predictionAccuracy + (result.label == target)) / predictionCounter;
 
