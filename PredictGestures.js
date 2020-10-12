@@ -50,7 +50,7 @@ Leap.loop(controllerOptions, function(frame) {
 });
 
 function Train() {
-  // Train0.js
+  // Train5.js
   for (var i = 0; i < train5.shape[3]; i++) {
     // console.log(train0.pick(null, null, null, i).toString());
     features = train5.pick(null, null, null, i);
@@ -64,7 +64,7 @@ function Train() {
     console.log(count + " Example(s) Added")
   }
 
-  // Train1.js
+  // Train6.js
   for (var i = 0; i < train6.shape[3]; i++) {
     // console.log(train0.pick(null, null, null, i).toString());
     features = train6.pick(null, null, null, i);
@@ -74,6 +74,20 @@ function Train() {
     // console.log(features.toString());
 
     knnClassifier.addExample(features.tolist(), 6);
+    count++;
+    console.log(count + " Example(s) Added")
+  }
+
+  // Train0.js
+  for (var i = 0; i < train0.shape[3]; i++) {
+    // console.log(train0.pick(null, null, null, i).toString());
+    features = train0.pick(null, null, null, i);
+
+    features = features.reshape(120);
+
+    // console.log(features.toString());
+
+    knnClassifier.addExample(features.tolist(), 0);
     count++;
     console.log(count + " Example(s) Added")
   }
@@ -100,7 +114,7 @@ function GotResults(err, result) {
   console.log("Predicted Gesture: " + result.label);
   predictionCounter++;
 
-  var target = 6;
+  var target = 0;
 
   predictionAccuracy  = ((predictionCounter - 1) * predictionAccuracy + (result.label == target)) / predictionCounter;
 
