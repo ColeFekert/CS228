@@ -60,7 +60,9 @@ function Train() {
     // console.log(features.toString());
 
     knnClassifier.addExample(features.tolist(), 0);
-    count++;
+    MirrorHand();
+    knnClassifier.addExample(features.tolist(), 9);
+    count += 2;
     console.log(count + " Train0 Example(s) Added")
   }
 
@@ -76,7 +78,9 @@ function Train() {
     // console.log(features.toString());
 
     knnClassifier.addExample(features.tolist(), 1);
-    count++;
+    MirrorHand();
+    knnClassifier.addExample(features.tolist(), 9);
+    count += 2;
     console.log(count + " Train1 Example(s) Added")
   }
 
@@ -92,7 +96,9 @@ function Train() {
     // console.log(features.toString());
 
     knnClassifier.addExample(features.tolist(), 2);
-    count++;
+    MirrorHand();
+    knnClassifier.addExample(features.tolist(), 9);
+    count += 2;
     console.log(count + " Train2 Example(s) Added")
   }
 
@@ -108,7 +114,9 @@ function Train() {
     // console.log(features.toString());
 
     knnClassifier.addExample(features.tolist(), 3);
-    count++;
+    MirrorHand();
+    knnClassifier.addExample(features.tolist(), 9);
+    count += 2;
     console.log(count + " Train3 Example(s) Added")
   }
 
@@ -124,7 +132,9 @@ function Train() {
     // console.log(features.toString());
 
     knnClassifier.addExample(features.tolist(), 4);
-    count++;
+    MirrorHand();
+    knnClassifier.addExample(features.tolist(), 9);
+    count += 2;
     console.log(count + " Train4 Example(s) Added")
   }
 
@@ -140,7 +150,9 @@ function Train() {
     // console.log(features.toString());
 
     knnClassifier.addExample(features.tolist(), 5);
-    count++;
+    MirrorHand();
+    knnClassifier.addExample(features.tolist(), 9);
+    count += 2;
     console.log(count + " Train5 Example(s) Added")
   }
 
@@ -156,13 +168,15 @@ function Train() {
     // console.log(features.toString());
 
     knnClassifier.addExample(features.tolist(), 6);
-    count++;
+    MirrorHand();
+    knnClassifier.addExample(features.tolist(), 9);
+    count += 2;
     console.log(count + " Train6 Example(s) Added")
   }
 
   count = 0;
 
-  // train7Gagnon.js
+  // train7Laquerre.js
   for (var i = 0; i < train7.shape[3]; i++) {
     // console.log(train0.pick(null, null, null, i).toString());
     features = train7.pick(null, null, null, i);
@@ -172,7 +186,24 @@ function Train() {
     // console.log(features.toString());
 
     knnClassifier.addExample(features.tolist(), 7);
-    count++;
+    MirrorHand();
+    knnClassifier.addExample(features.tolist(), 9);
+    count += 2;
+    console.log(count + " Train7 Example(s) Added")
+  }
+  // train7Vega.js
+  for (var i = 0; i < train7Vega.shape[3]; i++) {
+    // console.log(train0.pick(null, null, null, i).toString());
+    features = train7Vega.pick(null, null, null, i);
+
+    features = features.reshape(120);
+
+    // console.log(features.toString());
+
+    knnClassifier.addExample(features.tolist(), 7);
+    MirrorHand();
+    knnClassifier.addExample(features.tolist(), 9);
+    count += 2;
     console.log(count + " Train7 Example(s) Added")
   }
 
@@ -188,7 +219,9 @@ function Train() {
     // console.log(features.toString());
 
     knnClassifier.addExample(features.tolist(), 8);
-    count++;
+    MirrorHand();
+    knnClassifier.addExample(features.tolist(), 9);
+    count += 2;
     console.log(count + " Train8 Example(s) Added")
   }
 
@@ -204,7 +237,9 @@ function Train() {
     // console.log(features.toString());
 
     knnClassifier.addExample(features.tolist(), 9);
-    count++;
+    MirrorHand();
+    knnClassifier.addExample(features.tolist(), 9);
+    count += 2;
     console.log(count + " Train9 Example(s) Added")
   }
 
@@ -228,14 +263,15 @@ function Test() {
 }
 
 function GotResults(err, result) {
-  console.log("Predicted Gesture: " + result.label);
+  // console.log("Predicted Gesture: " + result.label);
+  console.log(result.label);
   predictionCounter++;
 
-  var target = 3;
+  var target = 7;
 
   predictionAccuracy  = ((predictionCounter - 1) * predictionAccuracy + (result.label == target)) / predictionCounter;
 
-  console.log("n: " + predictionCounter + " | m: " + predictionAccuracy + " | c: " + target);
+  // console.log("n: " + predictionCounter + " | m: " + predictionAccuracy + " | c: " + target);
 
   // testingSampleIndex++;
 
@@ -494,4 +530,24 @@ function CenterZData() {
   horizontalShift = (0.5 - currentMean);
 
   // console.log("after: " + currentMean);
+}
+
+function MirrorHand() {
+  for (var i = 0; i < 5; i++) {     // rows
+    for (var j = 0; j < 4; j++) {   // columns
+      // Top X
+      var currentX = oneFrameOfData.get(i, j, 0);
+
+      var shiftedX = 1 - currentX;
+
+      oneFrameOfData.set(i, j, 0, shiftedX);
+
+      // Bottom X
+      currentX = oneFrameOfData.get(i, j, 3);
+
+      shiftedX = 1 - currentX;
+
+      oneFrameOfData.set(i, j, 3, shiftedX);
+    }
+  }
 }
