@@ -963,5 +963,5 @@ function TrainKNNIfNotDoneYet() {
 }
 
 function DrawImageToHelpUserPutTheirHandOverTheDevice() {
-  //
+  image(img, 0, 0);
 }
