@@ -54,7 +54,7 @@ Leap.loop(controllerOptions, function(frame) {
 
 
 
-  HandleFrame(frame);
+
 });
 
 function Train() {
@@ -946,7 +946,14 @@ function DetermineState(frame) {
 
 function HandleState0(frame) {
   TrainKNNIfNotDoneYet();
+
   DrawImageToHelpUserPutTheirHandOverTheDevice();
+}
+
+function HandleState1(frame) {
+  HandleFrame(frame);
+
+  // test();
 }
 
 function TrainKNNIfNotDoneYet() {
