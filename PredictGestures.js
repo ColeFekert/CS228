@@ -43,7 +43,7 @@ Leap.loop(controllerOptions, function(frame) {
   // console.log(predictedClassLabels);
 
   if (!trainingCompleted) {
-    Train();
+    // Train();
   }
 
   HandleFrame(frame);
@@ -680,7 +680,7 @@ function HandleFrame(frame) {
 
     // console.log(oneFrameOfData.toString);
 
-    Test();
+    // Test();
   } else {
     moreThanOneHand = false;
   }
