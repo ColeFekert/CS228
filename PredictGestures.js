@@ -32,19 +32,27 @@ var predictionAccuracy = 0;
 
 // var predictedClassLabels = nj.zeros(numSamples);
 
+var programState = 0;
+
 
 // function draw() {
 Leap.loop(controllerOptions, function(frame) {
   clear();
+
+  DetermineState(frame);
+
+  if (programState == 0) {
+    HandleState0(frame);
+  } else if (programState == 1) {
+    HandleState1(frame);
+  }
 
   // numSamples = train0.shape[0];
   // numFeatures = train0.shape[1] - 1;
 
   // console.log(predictedClassLabels);
 
-  if (!trainingCompleted) {
-    // Train();
-  }
+
 
   HandleFrame(frame);
 });
@@ -926,4 +934,27 @@ function MirrorHand() {
       oneFrameOfData.set(i, j, 3, shiftedX);
     }
   }
+}
+
+function DetermineState(frame) {
+  if (frame.hands.length == 0) {
+    programState = 0;
+  } else {
+    programState = 1;
+  }
+}
+
+function HandleState0(frame) {
+  TrainKNNIfNotDoneYet();
+  DrawImageToHelpUserPutTheirHandOverTheDevice();
+}
+
+function TrainKNNIfNotDoneYet() {
+  // if (!trainingCompleted) {
+  //   Train();
+  // }
+}
+
+function DrawImageToHelpUserPutTheirHandOverTheDevice() {
+  //
 }
