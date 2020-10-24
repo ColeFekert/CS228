@@ -670,7 +670,7 @@ function HandleFrame(frame) {
 
     // console.log(oneFrameOfData.toString);
 
-    Test();
+    // Test();
   } else if (frame.hands.length > 1) {
     moreThanOneHand = true;
 
@@ -731,11 +731,11 @@ function HandleBone(bone, boneType, fingerIndex, moreThanOneHand, interactionBox
   oneFrameOfData.set(fingerIndex, boneType, 5, zt);
 
 
-  var canvasPrevX = window.innerWidth * normalizedPrevJoint[0];
-  var canvasPrevY = window.innerHeight * (1 - normalizedPrevJoint[1]);
+  var canvasPrevX = (window.innerWidth / 2) * normalizedPrevJoint[0];
+  var canvasPrevY = (window.innerHeight / 2) * (1 - normalizedPrevJoint[1]);
 
-  var canvasNextX = window.innerWidth * normalizedNextJoint[0];
-  var canvasNextY = window.innerHeight * (1 - normalizedNextJoint[1]);
+  var canvasNextX = (window.innerWidth / 2) * normalizedNextJoint[0];
+  var canvasNextY = (window.innerHeight / 2) * (1 - normalizedNextJoint[1]);
 
   // Draws both hands as gray
   if (boneType == 0) {
