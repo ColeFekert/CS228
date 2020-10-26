@@ -3,6 +3,6 @@ var img;
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
 
-  // img = loadImage('https://imgur.com/a/JqZTMUy');
-  img = loadImage('Hand-over-the-device.jpg');
+  img = loadImage('https://i.imgur.com/aNd6xdH.jpeg');
+  // img = loadImage('Hand-over-the-device.jpg');
 }
