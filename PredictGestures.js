@@ -46,7 +46,7 @@ Leap.loop(controllerOptions, function(frame) {
   } else if (programState == 1) {
     HandleState1(frame);
   } else if (programState == 2) {
-    //
+    HandleState2(frame);
   }
 
   // numSamples = train0.shape[0];
@@ -957,6 +957,31 @@ function HandleState0(frame) {
 function HandleState1(frame) {
   HandleFrame(frame);
 
+  if (HandIsTooFarToTheLeft()) {
+    DrawArrowRight();
+  }
+  if (HandIsTooFarToTheRight()) {
+    DrawArrowLeft();
+  }
+  if (HandIsTooFarUp()) {
+    DrawArrowDown();
+  }
+  if (HandIsTooFarDown()) {
+    DrawArrowUp();
+  }
+  if (HandIsTooFarAway()) {
+    DrawArrowTowards();
+  }
+  if (HandIsTooFarTowards()) {
+    DrawArrowAway();
+  }
+
+  // test();
+}
+
+function HandleState2(frame) {
+  HandleFrame(frame);
+
   // test();
 }
 
@@ -971,5 +996,108 @@ function DrawImageToHelpUserPutTheirHandOverTheDevice() {
 }
 
 function HandIsUncentered() {
-  
+  if (HandIsTooFarToTheLeft() || HandIsTooFarToTheRight() ||
+      HandIsTooFarUp() || HandIsTooFarDown() || HandIsTooFarAway()
+      || HandIsTooFarTowards()) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function HandIsTooFarToTheLeft() {
+  var xValues = oneFrameOfData.slice([],[],[0,6,3]);
+
+  var mean = xValues.mean();
+
+  if (mean < 0.25) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function HandIsTooFarToTheRight() {
+  var xValues = oneFrameOfData.slice([],[],[0,6,3]);
+
+  var mean = xValues.mean();
+
+  if (mean > 0.75) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function HandIsTooFarUp() {
+  var yValues = oneFrameOfData.slice([],[],[1,6,3]);
+
+  var mean = yValues.mean();
+
+  if (mean > 0.75) {
+    return true;
+  } else {
+    return false;
+
+  }
+}
+
+function HandIsTooFarDown() {
+  var yValues = oneFrameOfData.slice([],[],[1,6,3]);
+
+  var mean = yValues.mean();
+
+  if (mean < 0.25) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function HandIsTooFarAway() {
+  var zValues = oneFrameOfData.slice([],[],[2,6,3]);
+
+  var mean = zValues.mean();
+
+  if (mean < 0.25) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function HandIsTooFarTowards() {
+  var zValues = oneFrameOfData.slice([],[],[2,6,3]);
+
+  var mean = zValues.mean();
+
+  if (mean > 0.75) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function DrawArrowRight() {
+  image(imgRight, window.innerWidth / 2, 0, window.innerWidth / 2, window.innerWidth / 2);
+}
+
+function DrawArrowLeft() {
+  image(imgLeft, window.innerWidth / 2, 0, window.innerWidth / 2, window.innerWidth / 2);
+}
+
+function DrawArrowUp() {
+  image(imgUp, window.innerWidth / 2, 0, window.innerWidth / 2, window.innerWidth / 2);
+}
+
+function DrawArrowDown() {
+  image(imgDown, window.innerWidth / 2, 0, window.innerWidth / 2, window.innerWidth / 2);
+}
+
+function DrawArrowAway() {
+  image(imgAway, window.innerWidth / 2, 0, window.innerWidth / 2, window.innerWidth / 2);
+}
+
+function DrawArrowTowards() {
+  image(imgTowards, window.innerWidth / 2, 0, window.innerWidth / 2, window.innerWidth / 2);
 }
