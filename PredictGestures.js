@@ -45,6 +45,8 @@ Leap.loop(controllerOptions, function(frame) {
     HandleState0(frame);
   } else if (programState == 1) {
     HandleState1(frame);
+  } else if (programState == 2) {
+    //
   }
 
   // numSamples = train0.shape[0];
@@ -939,8 +941,10 @@ function MirrorHand() {
 function DetermineState(frame) {
   if (frame.hands.length == 0) {
     programState = 0;
-  } else {
+  } else if (HandIsUncentered()) {
     programState = 1;
+  } else {
+    programState = 2;
   }
 }
 
@@ -963,5 +967,9 @@ function TrainKNNIfNotDoneYet() {
 }
 
 function DrawImageToHelpUserPutTheirHandOverTheDevice() {
-  image(img, 0, 0, window.innerWidth / 2, window.innerHeight / 2);
+  image(imgOver, 0, 0, window.innerWidth / 2, window.innerHeight / 2);
+}
+
+function HandIsUncentered() {
+  
 }
