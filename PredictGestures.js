@@ -1131,4 +1131,14 @@ function SignIn() {
 
 function IsNewUser(username, list) {
   var users = list.children;
+
+  usernameFound = false;
+
+  for (var i = 0; i < users.length; i++) {
+    if (username == users[i].innerHTML) {
+      usernameFound = true;
+    }
+  }
+
+  return usernameFound == false;
 }
