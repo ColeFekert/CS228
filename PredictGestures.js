@@ -1116,13 +1116,19 @@ function SignIn() {
 
   var list = document.getElementById('users');
 
-  var item = document.createElement('li');
+  if (IsNewUser(username, list)) {
+    var item = document.createElement('li');
 
-  item.innerHTML = String(username);
+    item.innerHTML = String(username);
 
-  list.appendChild(item);
+    list.appendChild(item);
+  }
 
   console.log(list.innerHTML);
 
   return false;
+}
+
+function IsNewUser(username, list) {
+  var users = list.children;
 }
