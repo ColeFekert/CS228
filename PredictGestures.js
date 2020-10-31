@@ -1108,7 +1108,7 @@ function DrawArrowTowards() {
 
 // Login function
 function SignIn() {
-  console.log("[SignIn Function Called]");
+  // console.log("[SignIn Function Called]");
 
   username = document.getElementById('username').value;
 
