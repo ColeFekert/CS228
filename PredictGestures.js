@@ -995,6 +995,8 @@ function DrawImageToHelpUserPutTheirHandOverTheDevice() {
   image(imgOver, 0, 0, window.innerWidth / 2, window.innerHeight / 2);
 }
 
+// Hand position handling functions
+
 function HandIsUncentered() {
   if (HandIsTooFarToTheLeft() || HandIsTooFarToTheRight() ||
       HandIsTooFarUp() || HandIsTooFarDown() || HandIsTooFarAway()
@@ -1078,6 +1080,8 @@ function HandIsTooFarTowards() {
   }
 }
 
+// Image drawing funcitons
+
 function DrawArrowRight() {
   image(imgRight, window.innerWidth / 2, 0, window.innerWidth / 2, window.innerWidth / 2);
 }
@@ -1100,4 +1104,11 @@ function DrawArrowAway() {
 
 function DrawArrowTowards() {
   image(imgTowards, window.innerWidth / 2, 0, window.innerWidth / 2, window.innerWidth / 2);
+}
+
+// Login function
+function SignIn() {
+  console.log("[SignIn Function Called]");
+
+  username = document.getElementById('username').value;
 }
