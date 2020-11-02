@@ -1119,6 +1119,8 @@ function SignIn() {
   if (IsNewUser(username, list)) {
     var item = document.createElement('li');
 
+    item.id = String(username) + "_name";
+
     item.innerHTML = String(username);
 
     list.appendChild(item);
