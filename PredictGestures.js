@@ -1117,13 +1117,9 @@ function SignIn() {
   var list = document.getElementById('users');
 
   if (IsNewUser(username, list)) {
-    var item = document.createElement('li');
+    CreateNewUser(username, list);
 
-    item.id = String(username) + "_name";
-
-    item.innerHTML = String(username);
-
-    list.appendChild(item);
+    CreateSignInItem(username, list);
   }
 
   console.log(list.innerHTML);
@@ -1143,4 +1139,24 @@ function IsNewUser(username, list) {
   }
 
   return usernameFound == false;
+}
+
+function CreateNewUser(username, list) {
+  var item = document.createElement('li');
+
+  item.id = String(username) + "_name";
+
+  item.innerHTML = String(username);
+
+  list.appendChild(item);
+}
+
+function CreateSignInItem(username, list) {
+  var itemSignInCount = document.createElement('li');
+
+  itemSignInCount.id = String(username) + "_signins";
+
+  itemSignInCount.innerHTML = 1;
+
+  list.appendChild(itemSignInCount);
 }
