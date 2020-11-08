@@ -34,6 +34,8 @@ var predictionAccuracy = 0;
 
 var programState = 0;
 
+var digitToShow = 0;
+
 
 // function draw() {
 Leap.loop(controllerOptions, function(frame) {
@@ -982,6 +984,8 @@ function HandleState1(frame) {
 function HandleState2(frame) {
   HandleFrame(frame);
 
+  DrawLowerRightPanel();
+
   // test();
 }
 
@@ -993,6 +997,14 @@ function TrainKNNIfNotDoneYet() {
 
 function DrawImageToHelpUserPutTheirHandOverTheDevice() {
   image(imgOver, 0, 0, window.innerWidth / 2, window.innerHeight / 2);
+}
+
+function DrawLowerRightPanel() {
+  if (digitToShow == 0) {
+    image(imgZero, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+  } else {
+    image(imgOne, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+  }
 }
 
 // Hand position handling functions
