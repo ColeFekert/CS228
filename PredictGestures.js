@@ -982,9 +982,11 @@ function HandleState1(frame) {
 }
 
 function HandleState2(frame) {
-  HandleFrame(frame);
+  DetermineWhetherToSwitchDigits();
 
   DrawLowerRightPanel();
+
+  HandleFrame(frame);
 
   // test();
 }
@@ -1004,6 +1006,14 @@ function DrawLowerRightPanel() {
     image(imgZero, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
   } else {
     image(imgOne, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+  }
+}
+
+function DetermineWhetherToSwitchDigits() {
+  if (digitToShow == 0) {
+    digitToShow = 1;
+  } else if (digitToShow == 1) {
+    digitToShow = 0;
   }
 }
 
