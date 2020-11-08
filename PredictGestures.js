@@ -1026,7 +1026,17 @@ function SwitchDigits() {
 }
 
 function TimeToSwitchDigits() {
-  return false;
+  var currentTime = new Date();
+
+  var elapsedTimeInMilliseconds = currentTime - timeSinceLastDigitChange;
+
+  var elapsedTimeinSeconds = elapsedTimeInMilliseconds / 1000;
+
+  if (elapsedTimeinSeconds > 1.0) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 // Hand position handling functions
