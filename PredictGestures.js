@@ -1018,6 +1018,8 @@ function DetermineWhetherToSwitchDigits() {
 }
 
 function SwitchDigits() {
+  timeSinceLastDigitChange = Date.now();
+
   if (digitToShow == 0) {
     digitToShow = 1;
   } else if (digitToShow == 1) {
