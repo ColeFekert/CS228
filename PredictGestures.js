@@ -36,6 +36,8 @@ var programState = 0;
 
 var digitToShow = 0;
 
+var timeSinceLastDigitChange = new Date();
+
 
 // function draw() {
 Leap.loop(controllerOptions, function(frame) {
@@ -1010,11 +1012,21 @@ function DrawLowerRightPanel() {
 }
 
 function DetermineWhetherToSwitchDigits() {
+  if (TimeToSwitchDigits()) {
+    SwitchDigits();
+  }
+}
+
+function SwitchDigits() {
   if (digitToShow == 0) {
     digitToShow = 1;
   } else if (digitToShow == 1) {
     digitToShow = 0;
   }
+}
+
+function TimeToSwitchDigits() {
+  return false;
 }
 
 // Hand position handling functions
