@@ -990,13 +990,13 @@ function HandleState2(frame) {
 
   HandleFrame(frame);
 
-  // test();
+  Test();
 }
 
 function TrainKNNIfNotDoneYet() {
-  // if (!trainingCompleted) {
-  //   Train();
-  // }
+  if (!trainingCompleted) {
+    Train();
+  }
 }
 
 function DrawImageToHelpUserPutTheirHandOverTheDevice() {
@@ -1034,7 +1034,7 @@ function TimeToSwitchDigits() {
 
   var elapsedTimeinSeconds = elapsedTimeInMilliseconds / 1000;
 
-  if (elapsedTimeinSeconds > 1.0) {
+  if (elapsedTimeinSeconds > 5.0) {
     return true;
   } else {
     return false;
