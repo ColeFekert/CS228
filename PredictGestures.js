@@ -753,24 +753,52 @@ function HandleBone(bone, boneType, fingerIndex, moreThanOneHand, interactionBox
   var canvasNextX = (window.innerWidth / 2) * normalizedNextJoint[0];
   var canvasNextY = (window.innerHeight / 2) * (1 - normalizedNextJoint[1]);
 
-  // Draws both hands as gray
+  // Scales the the predictionAccuracy between 0 and 255
+
+
+  // console.log(colorProportion);
+
+  // Changes the color based on how accurate the prediction is
   if (boneType == 0) {
     strokeWeight(25);
     // stroke(20);
-    stroke(207);
+    var colorProportion = ((predictionAccuracy - 0) / 1) * 255
+    stroke(255 - colorProportion, colorProportion, 0);
   } else if (boneType == 1) {
     strokeWeight(20);
     // stroke(60);
-    stroke(158);
+    var colorProportion = ((predictionAccuracy - 0) / 1) * 220
+    stroke(220 - colorProportion, colorProportion, 0);
   } else if (boneType == 2) {
     strokeWeight(15);
     // stroke(80);
-    stroke(115);
+    var colorProportion = ((predictionAccuracy - 0) / 1) * 205
+    stroke(205 - colorProportion, colorProportion, 0);
   } else {
     strokeWeight(10);
     // stroke(100);
-    stroke(67);
+    var colorProportion = ((predictionAccuracy - 0) / 1) * 180
+    stroke(180 - colorProportion, colorProportion, 0);
   }
+
+  // Draws both hands as gray
+  // if (boneType == 0) {
+  //   strokeWeight(25);
+  //   // stroke(20);
+  //   stroke(207);
+  // } else if (boneType == 1) {
+  //   strokeWeight(20);
+  //   // stroke(60);
+  //   stroke(158);
+  // } else if (boneType == 2) {
+  //   strokeWeight(15);
+  //   // stroke(80);
+  //   stroke(115);
+  // } else {
+  //   strokeWeight(10);
+  //   // stroke(100);
+  //   stroke(67);
+  // }
 
   // Changes the color of the hands from green to red when more than one are present
   // if (moreThanOneHand) {
@@ -1038,7 +1066,7 @@ function TimeToSwitchDigits() {
 
   var elapsedTimeinSeconds = elapsedTimeInMilliseconds / 1000;
 
-  if (elapsedTimeinSeconds > 5.0) {
+  if (elapsedTimeinSeconds > 10.0) {
     return true;
   } else {
     return false;
