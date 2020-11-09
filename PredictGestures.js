@@ -654,14 +654,16 @@ function Test() {
 
 function GotResults(err, result) {
   // console.log("Predicted Gesture: " + result.label);
-  console.log(result.label);
+  // console.log(result.label);
   predictionCounter++;
 
-  var target = 7;
+  var target = digitToShow;
 
   predictionAccuracy  = ((predictionCounter - 1) * predictionAccuracy + (result.label == target)) / predictionCounter;
 
-  // console.log("n: " + predictionCounter + " | m: " + predictionAccuracy + " | c: " + target);
+
+  console.log(result.label);
+  console.log("n: " + predictionCounter + " | m: " + predictionAccuracy + " | c: " + target);
 
   // testingSampleIndex++;
 
@@ -1025,6 +1027,8 @@ function SwitchDigits() {
   } else if (digitToShow == 1) {
     digitToShow = 0;
   }
+
+  predictionAccuracy = 1;
 }
 
 function TimeToSwitchDigits() {
