@@ -38,6 +38,11 @@ var digitToShow = 0;
 
 var timeSinceLastDigitChange = new Date();
 
+// Stores the predictionAccuracy of each digit
+var accuracyArray = ['']
+
+var allTriedAtLeastOnce = false;
+
 
 // function draw() {
 Leap.loop(controllerOptions, function(frame) {
@@ -645,7 +650,7 @@ function Test() {
 
   currentFeatures = oneFrameOfData.pick(null, null, null, 0);
 
-  currentLabel = 0;
+  currentLabel = digitToShow;
 
   // console.log(currentFeatures.toString());
 
@@ -982,12 +987,14 @@ function DetermineState(frame) {
   }
 }
 
+// Hand is not over device
 function HandleState0(frame) {
   TrainKNNIfNotDoneYet();
 
   DrawImageToHelpUserPutTheirHandOverTheDevice();
 }
 
+// Hand is in bad spot
 function HandleState1(frame) {
   HandleFrame(frame);
 
@@ -1010,7 +1017,7 @@ function HandleState1(frame) {
     DrawArrowAway();
   }
 
-  // test();
+  // Test();
 }
 
 function HandleState2(frame) {
@@ -1036,9 +1043,26 @@ function DrawImageToHelpUserPutTheirHandOverTheDevice() {
 function DrawLowerRightPanel() {
   if (digitToShow == 0) {
     image(imgZero, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
-  } else {
+  } else if (digitToShow == 1) {
     image(imgOne, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+  } else if (digitToShow == 2) {
+    image(imgTwo, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+  } else if (digitToShow == 3) {
+    image(imgThree, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+  } else if (digitToShow == 4) {
+    image(imgFour, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+  } else if (digitToShow == 5) {
+    image(imgFive, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+  } else if (digitToShow == 6) {
+    image(imgSix, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+  } else if (digitToShow == 7) {
+    image(imgSeven, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+  } else if (digitToShow == 8) {
+    image(imgEight, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+  } else if (digitToShow == 9) {
+    image(imgNine, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
   }
+
 }
 
 function DetermineWhetherToSwitchDigits() {
@@ -1050,10 +1074,45 @@ function DetermineWhetherToSwitchDigits() {
 function SwitchDigits() {
   timeSinceLastDigitChange = Date.now();
 
+  accuracyArray[digitToShow] = predictionAccuracy;
+
+  console.log(accuracyArray);
+
+  // Make sure every digit has been tested at least once
   if (digitToShow == 0) {
     digitToShow = 1;
   } else if (digitToShow == 1) {
-    digitToShow = 0;
+    digitToShow = 2;
+  } else if (digitToShow == 2) {
+    digitToShow = 3;
+  } else if (digitToShow == 3) {
+    digitToShow = 4;
+  } else if (digitToShow == 4) {
+    digitToShow = 5;
+  } else if (digitToShow == 5) {
+    digitToShow = 6;
+  } else if (digitToShow == 6) {
+    digitToShow = 7;
+  } else if (digitToShow == 7) {
+    digitToShow = 8;
+  } else if (digitToShow == 8) {
+    digitToShow = 9;
+  } else if (digitToShow == 9) {
+    allTriedAtLeastOnce = true;
+  }
+
+  // Once all have been tested, attack the weak ones
+  if (allTriedAtLeastOnce) {
+    var leastValue = 1.0;
+
+    for (var i = 0; i < accuracyArray.length; i++) {
+      console.log(accuracyArray[i]);
+      if (accuracyArray[i] < leastValue) {
+        leastValue = accuracyArray[i];
+      }
+    }
+
+    digitToShow = accuracyArray.indexOf(leastValue);
   }
 
   predictionAccuracy = 1;
@@ -1066,7 +1125,7 @@ function TimeToSwitchDigits() {
 
   var elapsedTimeinSeconds = elapsedTimeInMilliseconds / 1000;
 
-  if (elapsedTimeinSeconds > 10.0) {
+  if (elapsedTimeinSeconds > 5.0) {
     return true;
   } else {
     return false;
