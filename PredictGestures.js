@@ -28,7 +28,7 @@ var moreThanOneHand;
 var oneFrameOfData = nj.zeros([5, 4, 6]);
 
 var predictionCounter = 0;
-var predictionAccuracy = 0;
+var predictionAccuracy = 0.5;
 
 // var predictedClassLabels = nj.zeros(numSamples);
 
@@ -39,14 +39,21 @@ var digitToShow = 0;
 var timeSinceLastDigitChange = new Date();
 
 // Stores the predictionAccuracy of each digit
-var accuracyArray = ['']
+var accuracyArray = [''];
+var predictionCountArray = [''];
 
 var allTriedAtLeastOnce = false;
 
+var increasedDifficulty = false;
+
+var zeroDisplayed = false;
 
 // function draw() {
 Leap.loop(controllerOptions, function(frame) {
   clear();
+
+  stroke(0, 0, 0);
+  circle(25, 40, 15);
 
   DetermineState(frame);
 
@@ -666,6 +673,13 @@ function GotResults(err, result) {
 
   predictionAccuracy  = ((predictionCounter - 1) * predictionAccuracy + (result.label == target)) / predictionCounter;
 
+  if (target == result.label) {
+    stroke(0, 255, 0);
+    circle(25, 40, 15);
+  } else {
+    stroke(255, 0, 0);
+    circle(25, 40, 15);
+  }
 
   console.log(result.label);
   console.log("n: " + predictionCounter + " | m: " + predictionAccuracy + " | c: " + target);
@@ -1041,26 +1055,52 @@ function DrawImageToHelpUserPutTheirHandOverTheDevice() {
 }
 
 function DrawLowerRightPanel() {
-  if (digitToShow == 0) {
-    image(imgZero, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
-  } else if (digitToShow == 1) {
-    image(imgOne, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
-  } else if (digitToShow == 2) {
-    image(imgTwo, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
-  } else if (digitToShow == 3) {
-    image(imgThree, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
-  } else if (digitToShow == 4) {
-    image(imgFour, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
-  } else if (digitToShow == 5) {
-    image(imgFive, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
-  } else if (digitToShow == 6) {
-    image(imgSix, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
-  } else if (digitToShow == 7) {
-    image(imgSeven, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
-  } else if (digitToShow == 8) {
-    image(imgEight, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
-  } else if (digitToShow == 9) {
-    image(imgNine, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+  // SCAFOLDING 2
+  // If the increasedDifficulty flag is raised, then the image just displays the number
+  if (!increasedDifficulty) {
+    if (digitToShow == 0) {
+      image(imgZero, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+    } else if (digitToShow == 1) {
+      image(imgOne, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+    } else if (digitToShow == 2) {
+      image(imgTwo, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+    } else if (digitToShow == 3) {
+      image(imgThree, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+    } else if (digitToShow == 4) {
+      image(imgFour, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+    } else if (digitToShow == 5) {
+      image(imgFive, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+    } else if (digitToShow == 6) {
+      image(imgSix, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+    } else if (digitToShow == 7) {
+      image(imgSeven, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+    } else if (digitToShow == 8) {
+      image(imgEight, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+    } else if (digitToShow == 9) {
+      image(imgNine, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+    }
+  } else {
+    if (digitToShow == 0) {
+      image(img0, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+    } else if (digitToShow == 1) {
+      image(img1, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+    } else if (digitToShow == 2) {
+      image(img2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+    } else if (digitToShow == 3) {
+      image(img3, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+    } else if (digitToShow == 4) {
+      image(img4, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+    } else if (digitToShow == 5) {
+      image(img5, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+    } else if (digitToShow == 6) {
+      image(img6, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+    } else if (digitToShow == 7) {
+      image(img7, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+    } else if (digitToShow == 8) {
+      image(img8, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+    } else if (digitToShow == 9) {
+      image(img9, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+    }
   }
 
 }
@@ -1074,48 +1114,74 @@ function DetermineWhetherToSwitchDigits() {
 function SwitchDigits() {
   timeSinceLastDigitChange = Date.now();
 
+  increasedDifficulty = false;
+
+  predictionCountArray[digitToShow] = predictionCounter;
+
   accuracyArray[digitToShow] = predictionAccuracy;
 
   console.log(accuracyArray);
+  console.log(predictionCountArray);
+
+  // SCAFOLDING 1:
+  // Chooses the poorest performing digit to test again after testing all digits
 
   // Make sure every digit has been tested at least once
-  if (digitToShow == 0) {
-    digitToShow = 1;
-  } else if (digitToShow == 1) {
-    digitToShow = 2;
-  } else if (digitToShow == 2) {
-    digitToShow = 3;
-  } else if (digitToShow == 3) {
-    digitToShow = 4;
-  } else if (digitToShow == 4) {
-    digitToShow = 5;
-  } else if (digitToShow == 5) {
-    digitToShow = 6;
-  } else if (digitToShow == 6) {
-    digitToShow = 7;
-  } else if (digitToShow == 7) {
-    digitToShow = 8;
-  } else if (digitToShow == 8) {
-    digitToShow = 9;
-  } else if (digitToShow == 9) {
-    allTriedAtLeastOnce = true;
-  }
-
-  // Once all have been tested, attack the weak ones
-  if (allTriedAtLeastOnce) {
-    var leastValue = 1.0;
-
-    for (var i = 0; i < accuracyArray.length; i++) {
-      console.log(accuracyArray[i]);
-      if (accuracyArray[i] < leastValue) {
-        leastValue = accuracyArray[i];
-      }
+  if (!allTriedAtLeastOnce) {
+    if (digitToShow == 0 && zeroDisplayed) {
+      digitToShow = 1;
+    } else if (digitToShow == 0) {
+      zeroDisplayed = true;
+    } else if (digitToShow == 1) {
+      digitToShow = 2;
+    } else if (digitToShow == 2) {
+      digitToShow = 3;
+    } else if (digitToShow == 3) {
+      digitToShow = 4;
+    } else if (digitToShow == 4) {
+      digitToShow = 5;
+    } else if (digitToShow == 5) {
+      digitToShow = 6;
+    } else if (digitToShow == 6) {
+      digitToShow = 7;
+    } else if (digitToShow == 7) {
+      digitToShow = 8;
+    } else if (digitToShow == 8) {
+      digitToShow = 9;
+    } else if (digitToShow == 9) {
+      allTriedAtLeastOnce = true;
     }
+    predictionAccuracy = 0.5;
+    predictionCounter = 0;
+  }
+  if (allTriedAtLeastOnce) {
+    // var leastValue = 1.0;
+
+    // for (var i = 0; i < accuracyArray.length; i++) {
+    //   // console.log(accuracyArray[i]);
+    //   if (accuracyArray[i] < leastValue) {
+    //     leastValue = accuracyArray[i];
+    //   }
+    // }
+
+    var leastValue = Math.min(...accuracyArray);
 
     digitToShow = accuracyArray.indexOf(leastValue);
-  }
 
-  predictionAccuracy = 1;
+    if (leastValue > 0.65) {
+      increasedDifficulty = true;
+    }
+
+    predictionAccuracy = accuracyArray[digitToShow];
+    predictionCounter = predictionCountArray[digitToShow];
+
+    if (predictionAccuracy < 0.5) {
+      // If a user incorrectly signs a digit for too long,
+      // its possible that it will say it equals -infinity
+      // So this just handles that so its possible to improve.
+      predictionAccuracy = 0.5;
+    }
+  }
 }
 
 function TimeToSwitchDigits() {
@@ -1125,11 +1191,40 @@ function TimeToSwitchDigits() {
 
   var elapsedTimeinSeconds = elapsedTimeInMilliseconds / 1000;
 
-  if (elapsedTimeinSeconds > 5.0) {
-    return true;
-  } else {
-    return false;
+  // SCAFOLDING 3
+  // The better you are signing a digit, the less time you have to sign it
+  if (predictionAccuracy >= 0.65) {
+    if (elapsedTimeinSeconds > 3.0) {
+      return true;
+    } else {
+      return false;
+    }
+  } else if (predictionAccuracy < 0.65) {
+    if (elapsedTimeinSeconds > 5.0) {
+      return true;
+    } else {
+      return false;
+    }
+  } else if (predictionAccuracy < 0.6) {
+    if (elapsedTimeinSeconds > 6.25) {
+      return true;
+    } else {
+      return false;
+    }
+  } else if (predictionAccuracy < 0.55) {
+    if (elapsedTimeinSeconds > 7.5) {
+      return true;
+    } else {
+      return false;
+    }
+  } else if (predictionAccuracy <= 0.5) {
+    if (elapsedTimeinSeconds > 8.75) {
+      return true;
+    } else {
+      return false;
+    }
   }
+
 }
 
 // Hand position handling functions

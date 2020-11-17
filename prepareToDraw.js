@@ -1,6 +1,6 @@
 var imgOver, imgLeft, imgRight, imgUp, imgDown, imgAway, imgTowards;
 var imgZero, imgOne, imgTwo, imgThree, imgFour, imgFive, imgSix, imgSeven, imgEight, imgNine;
-
+var img0, img1, img2, img3, img4, img5, img6, img7, img8, img9
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
 
@@ -22,4 +22,15 @@ function setup() {
   imgSeven = loadImage('https://i.imgur.com/g9gwoUR.png');
   imgEight = loadImage('https://i.imgur.com/7P0aXhr.png');
   imgNine = loadImage('https://i.imgur.com/mv7dDcH.png');
+
+  img0 = loadImage('https://i.imgur.com/42LHg36.png');
+  img1 = loadImage('https://i.imgur.com/RRj4xTB.png');
+  img2 = loadImage('https://i.imgur.com/UvIb7WM.png');
+  img3 = loadImage('https://i.imgur.com/Lw0VLZv.png');
+  img4 = loadImage('https://i.imgur.com/gHui2kS.png');
+  img5 = loadImage('https://i.imgur.com/BYyHTd6.png');
+  img6 = loadImage('https://i.imgur.com/eVJe49D.png');
+  img7 = loadImage('https://i.imgur.com/FQCCHGq.png');
+  img8 = loadImage('https://i.imgur.com/g3LSsXg.png');
+  img9 = loadImage('https://i.imgur.com/5oYXGAV.png');
 }
