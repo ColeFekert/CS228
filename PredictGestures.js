@@ -1,6 +1,7 @@
 // Cole Fekert 2020
 // CS 228
 
+// VARIABLES
 // K-Nearest Neighbors Classifier
 const knnClassifier = ml5.KNNClassifier();
 
@@ -8,7 +9,6 @@ var trainingCompleted = false;
 
 var numSamples;
 var numFeatures;
-
 
 var features;           // For training
 
@@ -48,7 +48,7 @@ var increasedDifficulty = false;
 
 var zeroDisplayed = false;
 
-// function draw() {
+// FUNCTIONS
 Leap.loop(controllerOptions, function(frame) {
   clear();
 
