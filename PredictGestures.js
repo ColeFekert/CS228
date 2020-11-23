@@ -59,9 +59,19 @@ var secondOperand;
 var actualAnswer = -1;
 var userAnswer;
 
+var questionStartTime;
+
+var questionStartingPredictionAccuracy;
+
+var questionsCorrectnessArray = [];
+
 // FUNCTIONS
 Leap.loop(controllerOptions, function(frame) {
   clear();
+
+  // line(0, 0, window.innerWidth, 0);
+  // line(0, window.innerHeight / 2, window.innerWidth, window.innerHeight / 2)
+
 
   stroke(0, 0, 0);
   circle(25, 40, 15);
@@ -1016,7 +1026,7 @@ function DetermineState(frame) {
     programState = 0;
   } else if (HandIsUncentered()) {
     programState = 1;
-  } else {
+  } else if (!HandIsUncentered()) {
     programState = 2;
   }
 }
@@ -1140,39 +1150,57 @@ function DrawLowerRightPanel() {
       }
     }
   } else {
+    image(imgAdditionOperator, window.innerWidth / 2 + window.innerWidth / 7, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 8, window.innerWidth / 8)
+
     if (firstOperand == 0) {
-      image(img0, window.innerWidth / 2, window.innerWidth / 2 - window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img0, window.innerWidth / 2, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
     } else if (firstOperand == 1) {
-      image(img1, window.innerWidth / 2, window.innerWidth / 2 - window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img1, window.innerWidth / 2, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
     } else if (firstOperand == 2) {
-      image(img2, window.innerWidth / 2, window.innerWidth / 2 - window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img2, window.innerWidth / 2, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
     } else if (firstOperand == 3) {
-      image(img3, window.innerWidth / 2, window.innerWidth / 2 - window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img3, window.innerWidth / 2, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
     } else if (firstOperand == 4) {
-      image(img4, window.innerWidth / 2, window.innerWidth / 2 - window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img4, window.innerWidth / 2, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
     } else if (firstOperand == 5) {
-      image(img5, window.innerWidth / 2, window.innerWidth / 2 - window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img5, window.innerWidth / 2, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
     }
 
     if (secondOperand == 0) {
-      image(img0, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 - window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img0, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
     } else if (secondOperand == 1) {
-      image(img1, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 - window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img1, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
     } else if (secondOperand == 2) {
-      image(img2, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 - window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img2, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
     } else if (secondOperand == 3) {
-      image(img3, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 - window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img3, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
     } else if (secondOperand == 4) {
-      image(img4, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 - window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img4, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
     } else if (secondOperand == 5) {
-      image(img5, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 - window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img5, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
     }
   }
 
 }
 
+function FlashGreen() {
+  image(imgGreenBorder, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+}
+
+function FlashRed() {
+  image(imgRedBorder, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+}
+
 function DetermineWhetherToAskAnotherQuestion() {
   if (AnswerCorrect()) {
+    FlashGreen();
+    questionsCorrectnessArray.push(1);
+    predictionAccuracy = 0.5;
+    AskAnotherMathProblem();
+  } else if (QuestionTimeOut()) {
+    FlashRed();
+    predictionAccuracy = 0.5;
+    questionsCorrectnessArray.push(0);
     AskAnotherMathProblem();
   }
 }
@@ -1180,6 +1208,21 @@ function DetermineWhetherToAskAnotherQuestion() {
 function DetermineWhetherToSwitchDigits() {
   if (TimeToSwitchDigits()) {
     SwitchDigits();
+  }
+}
+
+// Returns true if the user takes longer than 15 seconds to answer a question
+function QuestionTimeOut() {
+  var now = new Date();
+
+  console.log("Now: " + now.getTime() + "| QStart: " + questionStartTime.getTime());
+
+  var cutOffTimeInSeconds = 10;
+
+  if (now.getTime() - questionStartTime.getTime() > cutOffTimeInSeconds * 1000) {
+    return true;
+  } else {
+    return false;
   }
 }
 
@@ -1192,9 +1235,9 @@ function AnswerCorrect() {
 }
 
 function AskAnotherMathProblem() {
-  var now = new Date();
-  firstOperand = now.getSeconds() % 5;
-  secondOperand = now.getMilliseconds() % 5;
+  questionStartTime = new Date();
+  firstOperand = (questionStartTime.getTime() % 1273) % 5;
+  secondOperand = (questionStartTime.getMilliseconds() % 2122) & 5;
   // var operatorNumeric = now.getMilliseconds() % 2;
 
   console.log("1st: " + firstOperand + " 2nd: " + secondOperand);
