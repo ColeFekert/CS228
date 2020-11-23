@@ -48,6 +48,17 @@ var increasedDifficulty = false;
 
 var zeroDisplayed = false;
 
+// Interim Video I Variables
+var mathGameActive = true;
+
+// var answerCorrect = false;
+
+var firstOperand;
+var secondOperand;
+
+var actualAnswer = -1;
+var userAnswer;
+
 // FUNCTIONS
 Leap.loop(controllerOptions, function(frame) {
   clear();
@@ -69,10 +80,6 @@ Leap.loop(controllerOptions, function(frame) {
   // numFeatures = train0.shape[1] - 1;
 
   // console.log(predictedClassLabels);
-
-
-
-
 });
 
 function Train() {
@@ -665,32 +672,45 @@ function Test() {
 }
 
 function GotResults(err, result) {
-  // console.log("Predicted Gesture: " + result.label);
-  // console.log(result.label);
-  predictionCounter++;
+  if (mathGameActive) {
+    predictionCounter++;
 
-  var target = digitToShow;
+    console.log(actualAnswer);
 
-  predictionAccuracy  = ((predictionCounter - 1) * predictionAccuracy + (result.label == target)) / predictionCounter;
+    var target = actualAnswer;
 
-  if (target == result.label) {
-    stroke(0, 255, 0);
-    circle(25, 40, 15);
+    predictionAccuracy  = ((predictionCounter - 1) * predictionAccuracy + (result.label == target)) / predictionCounter;
+
+    console.log(result.label);
+    console.log("n: " + predictionCounter + " | m: " + predictionAccuracy + " | c: " + target);
   } else {
-    stroke(255, 0, 0);
-    circle(25, 40, 15);
+    // console.log("Predicted Gesture: " + result.label);
+    // console.log(result.label);
+    predictionCounter++;
+
+    var target = digitToShow;
+
+    predictionAccuracy  = ((predictionCounter - 1) * predictionAccuracy + (result.label == target)) / predictionCounter;
+
+    if (target == result.label) {
+      stroke(0, 255, 0);
+      circle(25, 40, 15);
+    } else {
+      stroke(255, 0, 0);
+      circle(25, 40, 15);
+    }
+
+    console.log(result.label);
+    console.log("n: " + predictionCounter + " | m: " + predictionAccuracy + " | c: " + target);
+
+    // testingSampleIndex++;
+
+    // console.log(test.shape[3]);     // THIS = 2
+
+    // if (testingSampleIndex >= oneFrameOfData.shape[3]) {
+      //   testingSampleIndex = 0;
+      // }
   }
-
-  console.log(result.label);
-  console.log("n: " + predictionCounter + " | m: " + predictionAccuracy + " | c: " + target);
-
-  // testingSampleIndex++;
-
-  // console.log(test.shape[3]);     // THIS = 2
-
-  // if (testingSampleIndex >= oneFrameOfData.shape[3]) {
-  //   testingSampleIndex = 0;
-  // }
 }
 
 function HandleFrame(frame) {
@@ -1035,13 +1055,29 @@ function HandleState1(frame) {
 }
 
 function HandleState2(frame) {
-  DetermineWhetherToSwitchDigits();
+  if (mathGameActive) {
+    if (actualAnswer == -1) {
+      // First question needs to be asked
+      AskAnotherMathProblem();
+    }
 
-  DrawLowerRightPanel();
+    DetermineWhetherToAskAnotherQuestion();
 
-  HandleFrame(frame);
+    DrawLowerRightPanel();
 
-  Test();
+    HandleFrame(frame);
+
+    Test();
+
+  } else {
+    DetermineWhetherToSwitchDigits();
+
+    DrawLowerRightPanel();
+
+    HandleFrame(frame);
+
+    Test();
+  }
 }
 
 function TrainKNNIfNotDoneYet() {
@@ -1057,58 +1093,115 @@ function DrawImageToHelpUserPutTheirHandOverTheDevice() {
 function DrawLowerRightPanel() {
   // SCAFOLDING 2
   // If the increasedDifficulty flag is raised, then the image just displays the number
-  if (!increasedDifficulty) {
-    if (digitToShow == 0) {
-      image(imgZero, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
-    } else if (digitToShow == 1) {
-      image(imgOne, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
-    } else if (digitToShow == 2) {
-      image(imgTwo, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
-    } else if (digitToShow == 3) {
-      image(imgThree, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
-    } else if (digitToShow == 4) {
-      image(imgFour, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
-    } else if (digitToShow == 5) {
-      image(imgFive, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
-    } else if (digitToShow == 6) {
-      image(imgSix, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
-    } else if (digitToShow == 7) {
-      image(imgSeven, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
-    } else if (digitToShow == 8) {
-      image(imgEight, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
-    } else if (digitToShow == 9) {
-      image(imgNine, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+  if (!mathGameActive) {
+    if (!increasedDifficulty) {
+      if (digitToShow == 0) {
+        image(imgZero, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+      } else if (digitToShow == 1) {
+        image(imgOne, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+      } else if (digitToShow == 2) {
+        image(imgTwo, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+      } else if (digitToShow == 3) {
+        image(imgThree, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+      } else if (digitToShow == 4) {
+        image(imgFour, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+      } else if (digitToShow == 5) {
+        image(imgFive, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+      } else if (digitToShow == 6) {
+        image(imgSix, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+      } else if (digitToShow == 7) {
+        image(imgSeven, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+      } else if (digitToShow == 8) {
+        image(imgEight, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+      } else if (digitToShow == 9) {
+        image(imgNine, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+      }
+    } else {
+      if (digitToShow == 0) {
+        image(img0, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+      } else if (digitToShow == 1) {
+        image(img1, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+      } else if (digitToShow == 2) {
+        image(img2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+      } else if (digitToShow == 3) {
+        image(img3, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+      } else if (digitToShow == 4) {
+        image(img4, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+      } else if (digitToShow == 5) {
+        image(img5, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+      } else if (digitToShow == 6) {
+        image(img6, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+      } else if (digitToShow == 7) {
+        image(img7, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+      } else if (digitToShow == 8) {
+        image(img8, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+      } else if (digitToShow == 9) {
+        image(img9, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+      }
     }
   } else {
-    if (digitToShow == 0) {
-      image(img0, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
-    } else if (digitToShow == 1) {
-      image(img1, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
-    } else if (digitToShow == 2) {
-      image(img2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
-    } else if (digitToShow == 3) {
-      image(img3, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
-    } else if (digitToShow == 4) {
-      image(img4, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
-    } else if (digitToShow == 5) {
-      image(img5, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
-    } else if (digitToShow == 6) {
-      image(img6, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
-    } else if (digitToShow == 7) {
-      image(img7, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
-    } else if (digitToShow == 8) {
-      image(img8, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
-    } else if (digitToShow == 9) {
-      image(img9, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+    if (firstOperand == 0) {
+      image(img0, window.innerWidth / 2, window.innerWidth / 2 - window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+    } else if (firstOperand == 1) {
+      image(img1, window.innerWidth / 2, window.innerWidth / 2 - window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+    } else if (firstOperand == 2) {
+      image(img2, window.innerWidth / 2, window.innerWidth / 2 - window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+    } else if (firstOperand == 3) {
+      image(img3, window.innerWidth / 2, window.innerWidth / 2 - window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+    } else if (firstOperand == 4) {
+      image(img4, window.innerWidth / 2, window.innerWidth / 2 - window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+    } else if (firstOperand == 5) {
+      image(img5, window.innerWidth / 2, window.innerWidth / 2 - window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+    }
+
+    if (secondOperand == 0) {
+      image(img0, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 - window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+    } else if (secondOperand == 1) {
+      image(img1, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 - window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+    } else if (secondOperand == 2) {
+      image(img2, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 - window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+    } else if (secondOperand == 3) {
+      image(img3, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 - window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+    } else if (secondOperand == 4) {
+      image(img4, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 - window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+    } else if (secondOperand == 5) {
+      image(img5, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 - window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
     }
   }
 
+}
+
+function DetermineWhetherToAskAnotherQuestion() {
+  if (AnswerCorrect()) {
+    AskAnotherMathProblem();
+  }
 }
 
 function DetermineWhetherToSwitchDigits() {
   if (TimeToSwitchDigits()) {
     SwitchDigits();
   }
+}
+
+function AnswerCorrect() {
+  if (predictionAccuracy > 0.55) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function AskAnotherMathProblem() {
+  var now = new Date();
+  firstOperand = now.getSeconds() % 5;
+  secondOperand = now.getMilliseconds() % 5;
+  // var operatorNumeric = now.getMilliseconds() % 2;
+
+  console.log("1st: " + firstOperand + " 2nd: " + secondOperand);
+
+  actualAnswer = firstOperand + secondOperand;
+
+  DrawLowerRightPanel();
 }
 
 function SwitchDigits() {
