@@ -1066,6 +1066,7 @@ function HandleState1(frame) {
 }
 
 function HandleState2(frame) {
+  image(imgGreenBorder, 0, 0, window.innerWidth / 2, window.innerHeight / 2);
   if (mathGameActive) {
     if (actualAnswer == -1) {
       // First question needs to be asked
@@ -1102,114 +1103,127 @@ function DrawImageToHelpUserPutTheirHandOverTheDevice() {
 }
 
 function DrawLowerRightPanel() {
+  var width = window.innerWidth;
+  var height = window.innerHeight;
+
+  console.log("w: " + width + " | h: " + height);
+  console.log((width / 2) + (width / 4));
+  console.log(width / 2);
+
   // SCAFOLDING 2
   // If the increasedDifficulty flag is raised, then the image just displays the number
   if (!mathGameActive) {
     if (!increasedDifficulty) {
       if (digitToShow == 0) {
-        image(imgZero, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+        image(imgZero, width / 2, height / 2, width / 2, height / 2);
       } else if (digitToShow == 1) {
-        image(imgOne, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+        image(imgOne, width / 2, height / 2, width / 2, height / 2);
       } else if (digitToShow == 2) {
-        image(imgTwo, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+        image(imgTwo, width / 2, height / 2, width / 2, height / 2);
       } else if (digitToShow == 3) {
-        image(imgThree, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+        image(imgThree, width / 2, height / 2, width / 2, height / 2);
       } else if (digitToShow == 4) {
-        image(imgFour, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+        image(imgFour, width / 2, height / 2, width / 2, height / 2);
       } else if (digitToShow == 5) {
-        image(imgFive, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+        image(imgFive, width / 2, height / 2, width / 2, height / 2);
       } else if (digitToShow == 6) {
-        image(imgSix, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+        image(imgSix, width / 2, height / 2, width / 2, height / 2);
       } else if (digitToShow == 7) {
-        image(imgSeven, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+        image(imgSeven, width / 2, height / 2, width / 2, height / 2);
       } else if (digitToShow == 8) {
-        image(imgEight, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+        image(imgEight, width / 2, height / 2, width / 2, height / 2);
       } else if (digitToShow == 9) {
-        image(imgNine, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+        image(imgNine, width / 2, height / 2, width / 2, height / 2);
       }
     } else {
       if (digitToShow == 0) {
-        image(img0, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+        image(img0, width / 2, height / 2, width / 2, height / 2);
       } else if (digitToShow == 1) {
-        image(img1, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+        image(img1, width / 2, height / 2, width / 2, height / 2);
       } else if (digitToShow == 2) {
-        image(img2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+        image(img2, width / 2, height / 2, width / 2, height / 2);
       } else if (digitToShow == 3) {
-        image(img3, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+        image(img3, width / 2, height / 2, width / 2, height / 2);
       } else if (digitToShow == 4) {
-        image(img4, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+        image(img4, width / 2, height / 2, width / 2, height / 2);
       } else if (digitToShow == 5) {
-        image(img5, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+        image(img5, width / 2, height / 2, width / 2, height / 2);
       } else if (digitToShow == 6) {
-        image(img6, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+        image(img6, width / 2, height / 2, width / 2, height / 2);
       } else if (digitToShow == 7) {
-        image(img7, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+        image(img7, width / 2, height / 2, width / 2, height / 2);
       } else if (digitToShow == 8) {
-        image(img8, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+        image(img8, width / 2, height / 2, width / 2, height / 2);
       } else if (digitToShow == 9) {
-        image(img9, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+        image(img9, width / 2, height / 2, width / 2, height / 2);
       }
     }
   } else {
     if (operatorNumeric == 0) {
-      image(imgAdditionOperator, window.innerWidth / 2 + window.innerWidth / 7, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 8, window.innerWidth / 8);
+      image(imgAdditionOperator, (width / 2) + (width / 4), (height / 2) + (height / 4), 75, 75);
     } else if (operatorNumeric == 1) {
-      image(imgSubtractionOperator, window.innerWidth / 2 + window.innerWidth / 7, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 8, window.innerWidth / 8);
+      image(imgSubtractionOperator, (width / 2) + (width / 4), (height / 2) + (height / 4), 75, 75);
     }
 
+
+
     if (firstOperand == 0) {
-      image(img0, window.innerWidth / 2, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img0, ((width / 2) + (width / 4)) - 75, (height / 2) + (height / 4), 75, 75);
     } else if (firstOperand == 1) {
-      image(img1, window.innerWidth / 2, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img1, ((width / 2) + (width / 4)) - 75, (height / 2) + (height / 4), 75, 75);
     } else if (firstOperand == 2) {
-      image(img2, window.innerWidth / 2, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img2, ((width / 2) + (width / 4)) - 75, (height / 2) + (height / 4), 75, 75);
     } else if (firstOperand == 3) {
-      image(img3, window.innerWidth / 2, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img3, ((width / 2) + (width / 4)) - 75, (height / 2) + (height / 4), 75, 75);
     } else if (firstOperand == 4) {
-      image(img4, window.innerWidth / 2, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img4, ((width / 2) + (width / 4)) - 75, (height / 2) + (height / 4), 75, 75);
     } else if (firstOperand == 5) {
-      image(img5, window.innerWidth / 2, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img5, ((width / 2) + (width / 4)) - 75, (height / 2) + (height / 4), 75, 75);
     } else if (firstOperand == 6) {
-      image(img6, window.innerWidth / 2, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img6, ((width / 2) + (width / 4)) - 75, (height / 2) + (height / 4), 75, 75);
     } else if (firstOperand == 7) {
-      image(img7, window.innerWidth / 2, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img7, ((width / 2) + (width / 4)) - 75, (height / 2) + (height / 4), 75, 75);
     } else if (firstOperand == 8) {
-      image(img8, window.innerWidth / 2, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img8, ((width / 2) + (width / 4)) - 75, (height / 2) + (height / 4), 75, 75);
     } else if (firstOperand == 9) {
-      image(img9, window.innerWidth / 2, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img9, ((width / 2) + (width / 4)) - 75, (height / 2) + (height / 4), 75, 75);
     }
 
     if (secondOperand == 0) {
-      image(img0, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img0, ((width / 2) + (width / 4)) + 75, (height / 2) + (height / 4), 75, 75);
     } else if (secondOperand == 1) {
-      image(img1, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img1, ((width / 2) + (width / 4)) + 75, (height / 2) + (height / 4), 75, 75);
     } else if (secondOperand == 2) {
-      image(img2, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img2, ((width / 2) + (width / 4)) + 75, (height / 2) + (height / 4), 75, 75);
     } else if (secondOperand == 3) {
-      image(img3, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img3, ((width / 2) + (width / 4)) + 75, (height / 2) + (height / 4), 75, 75);
     } else if (secondOperand == 4) {
-      image(img4, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img4, ((width / 2) + (width / 4)) + 75, (height / 2) + (height / 4), 75, 75);
     } else if (secondOperand == 5) {
-      image(img5, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img5, ((width / 2) + (width / 4)) + 75, (height / 2) + (height / 4), 75, 75);
     } else if (secondOperand == 6) {
-      image(img6, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img6, ((width / 2) + (width / 4)) + 75, (height / 2) + (height / 4), 75, 75);
     } else if (secondOperand == 7) {
-      image(img7, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img7, ((width / 2) + (width / 4)) + 75, (height / 2) + (height / 4), 75, 75);
     } else if (secondOperand == 8) {
-      image(img8, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img8, ((width / 2) + (width / 4)) + 75, (height / 2) + (height / 4), 75, 75);
     } else if (secondOperand == 9) {
-      image(img9, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+      image(img9, ((width / 2) + (width / 4)) + 75, (height / 2) + (height / 4), 75, 75);
     }
   }
 
 }
 
 function FlashGreen() {
-  image(imgGreenBorder, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+  var width = window.innerWidth;
+  var height = window.innerHeight;
+  image(imgGreenBorder, width / 2, height / 2, width / 2, height / 2);
 }
 
 function FlashRed() {
-  image(imgRedBorder, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2, window.innerWidth / 2);
+  var width = window.innerWidth;
+  var height = window.innerHeight;
+  image(imgRedBorder, width / 2, height / 2, width / 2, height / 2);
 }
 
 function DetermineWhetherToAskAnotherQuestion() {
