@@ -55,6 +55,7 @@ var mathGameActive = true;
 
 var firstOperand;
 var secondOperand;
+var operatorNumeric;
 
 var actualAnswer = -1;
 var userAnswer;
@@ -1150,7 +1151,11 @@ function DrawLowerRightPanel() {
       }
     }
   } else {
-    image(imgAdditionOperator, window.innerWidth / 2 + window.innerWidth / 7, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 8, window.innerWidth / 8)
+    if (operatorNumeric == 0) {
+      image(imgAdditionOperator, window.innerWidth / 2 + window.innerWidth / 7, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 8, window.innerWidth / 8);
+    } else if (operatorNumeric == 1) {
+      image(imgSubtractionOperator, window.innerWidth / 2 + window.innerWidth / 7, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 8, window.innerWidth / 8);
+    }
 
     if (firstOperand == 0) {
       image(img0, window.innerWidth / 2, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
@@ -1164,6 +1169,14 @@ function DrawLowerRightPanel() {
       image(img4, window.innerWidth / 2, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
     } else if (firstOperand == 5) {
       image(img5, window.innerWidth / 2, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+    } else if (firstOperand == 6) {
+      image(img6, window.innerWidth / 2, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+    } else if (firstOperand == 7) {
+      image(img7, window.innerWidth / 2, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+    } else if (firstOperand == 8) {
+      image(img8, window.innerWidth / 2, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+    } else if (firstOperand == 9) {
+      image(img9, window.innerWidth / 2, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
     }
 
     if (secondOperand == 0) {
@@ -1178,6 +1191,14 @@ function DrawLowerRightPanel() {
       image(img4, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
     } else if (secondOperand == 5) {
       image(img5, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+    } else if (secondOperand == 6) {
+      image(img6, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+    } else if (secondOperand == 7) {
+      image(img7, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+    } else if (secondOperand == 8) {
+      image(img8, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
+    } else if (secondOperand == 9) {
+      image(img9, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 2 + window.innerWidth / 4, window.innerWidth / 6, window.innerWidth / 6);
     }
   }
 
@@ -1196,10 +1217,12 @@ function DetermineWhetherToAskAnotherQuestion() {
     FlashGreen();
     questionsCorrectnessArray.push(1);
     predictionAccuracy = 0.5;
+    predictionCounter = 0;
     AskAnotherMathProblem();
   } else if (QuestionTimeOut()) {
     FlashRed();
     predictionAccuracy = 0.5;
+    predictionCounter = 0;
     questionsCorrectnessArray.push(0);
     AskAnotherMathProblem();
   }
@@ -1236,13 +1259,47 @@ function AnswerCorrect() {
 
 function AskAnotherMathProblem() {
   questionStartTime = new Date();
-  firstOperand = (questionStartTime.getTime() % 1273) % 5;
-  secondOperand = (questionStartTime.getMilliseconds() % 2122) & 5;
-  // var operatorNumeric = now.getMilliseconds() % 2;
+  firstOperand = (questionStartTime.getTime() % 1273) % 10;
+  secondOperand = (questionStartTime.getTime() % 2122) % 10;
+  operatorNumeric = questionStartTime.getTime() % 2;
 
-  console.log("1st: " + firstOperand + " 2nd: " + secondOperand);
+  if (operatorNumeric == 0) {
+    // ADDITION
+    actualAnswer = firstOperand + secondOperand;
 
-  actualAnswer = firstOperand + secondOperand;
+    console.log(firstOperand + " + " + secondOperand + " = " + actualAnswer);
+
+    if (actualAnswer > 9) {
+      if (firstOperand > secondOperand) {
+        firstOperand -= (actualAnswer - 9);
+      } else {
+        secondOperand -= (actualAnswer - 9);
+      }
+    }
+    actualAnswer = firstOperand + secondOperand;
+
+    console.log(firstOperand + " + " + secondOperand + " = " + actualAnswer);
+  } else if (operatorNumeric == 1) {
+    // SUBTRACTION
+    actualAnswer = firstOperand - secondOperand;
+
+    console.log(firstOperand + " - " + secondOperand + " = " + actualAnswer);
+
+    if (actualAnswer < 0) {
+      if (firstOperand < secondOperand) {
+        firstOperand += Math.abs(actualAnswer);
+        if (firstOperand >= 10) {
+          firstOperand -= 9;
+          secondOperand -= (firstOperand - 9);
+        }
+      } else {
+        secondOperand += Math.abs(actualAnswer);
+      }
+    }
+    actualAnswer = firstOperand - secondOperand;
+
+    console.log(firstOperand + " - " + secondOperand + " = " + actualAnswer);
+  }
 
   DrawLowerRightPanel();
 }

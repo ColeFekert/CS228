@@ -1,7 +1,7 @@
 var imgOver, imgLeft, imgRight, imgUp, imgDown, imgAway, imgTowards;
 var imgZero, imgOne, imgTwo, imgThree, imgFour, imgFive, imgSix, imgSeven, imgEight, imgNine;
 var img0, img1, img2, img3, img4, img5, img6, img7, img8, img9;
-var imgGreenBorder, imgRedBorder, imgAdditionOperator;
+var imgGreenBorder, imgRedBorder, imgAdditionOperator, imgSubtractionOperator;
 
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
@@ -39,4 +39,5 @@ function setup() {
   imgGreenBorder = loadImage('https://i.imgur.com/rIlzbOW.png');
   imgRedBorder = loadImage('https://i.imgur.com/AXRYINv.png');
   imgAdditionOperator = loadImage('https://i.imgur.com/dMI5PWM.png');
+  imgSubtractionOperator = loadImage('https://i.imgur.com/Aet8ZQk.png');
 }
