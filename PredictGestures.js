@@ -49,7 +49,7 @@ var increasedDifficulty = false;
 var zeroDisplayed = false;
 
 // Interim Video I Variables
-var mathGameActive = true;
+var mathGameActive = false;
 
 // var answerCorrect = false;
 
@@ -66,31 +66,50 @@ var questionStartingPredictionAccuracy;
 
 var questionsCorrectnessArray = [];
 
+
+// Interim Video II
+var username = "";
+
+var loginStart;
+var loginEnd;
+
 // FUNCTIONS
 Leap.loop(controllerOptions, function(frame) {
-  clear();
+  if (username != "") {
+    if (predictionCounter % 10 == 0 && predictionCounter > 0) {
+      UpdateUserStats();
+    }
 
-  // line(0, 0, window.innerWidth, 0);
-  // line(0, window.innerHeight / 2, window.innerWidth, window.innerHeight / 2)
+    // Constantly update the login end time to the current time,
+    //   so that when the program terminates, we can refer back to this saved value.
+    // loginEnd = new Date();
+
+    clear();
+
+    // line(0, 0, window.innerWidth, 0);
+    // line(0, window.innerHeight / 2, window.innerWidth, window.innerHeight / 2)
 
 
-  stroke(0, 0, 0);
-  circle(25, 40, 15);
+    stroke(0, 0, 0);
+    circle(25, 40, 15);
 
-  DetermineState(frame);
+    DetermineState(frame);
 
-  if (programState == 0) {
-    HandleState0(frame);
-  } else if (programState == 1) {
-    HandleState1(frame);
-  } else if (programState == 2) {
-    HandleState2(frame);
+    if (programState == 0) {
+      HandleState0(frame);
+    } else if (programState == 1) {
+      HandleState1(frame);
+    } else if (programState == 2) {
+      HandleState2(frame);
+    }
+
+    // numSamples = train0.shape[0];
+    // numFeatures = train0.shape[1] - 1;
+
+    // console.log(predictedClassLabels);
+  } else {
+    console.log("Waiting for user to LogIn...");
   }
-
-  // numSamples = train0.shape[0];
-  // numFeatures = train0.shape[1] - 1;
-
-  // console.log(predictedClassLabels);
 });
 
 function Train() {
@@ -1558,18 +1577,65 @@ function SignIn() {
   if (IsNewUser(username, list)) {
     CreateNewUser(username, list);
 
-    CreateSignInItem(username, list);
+    loginStart = new Date()
+
+    CreateSignInCount(username, list);
+
+    for (var i = 0; i < 10; i += 1) {
+      CreateGestureAttempts(username, list, i);
+
+      CreateGestureAccuracy(username, list, i);
+    }
+
   } else {
     ID = String(username) + "_signins";
 
     listItem = document.getElementById( ID );
 
     listItem.innerHTML = parseInt(listItem.innerHTML) + 1;
+
+    ID = String(username) + "_" + String(digitToShow) + "_attempts";
+
+    listItem = document.getElementById( ID );
+
+    listItem.innerHTML = predictionCounter;
+
+    ID = String(username) + "_" + String(digitToShow) + "_accuracy";
+
+    listItem = document.getElementById( ID );
+
+    listItem.innerHTML = predictionAccuracy;
+
+    console.log(username)
   }
 
   console.log(list.innerHTML);
 
   return false;
+}
+
+function UpdateUserStats() {
+  var list = document.getElementById('users');
+
+  ID = String(username) + "_" + String(digitToShow) + "_attempts";
+
+  listItem = document.getElementById( ID );
+
+  // Log the listItem and check that the name is matching
+
+  console.log(predictionCounter);
+
+  listItem.innerHTML = predictionCounter;
+
+  ID = String(username) + "_" + String(digitToShow) + "_accuracy";
+
+  listItem = document.getElementById( ID );
+
+  console.log(predictionAccuracy);
+
+  listItem.innerHTML = predictionAccuracy;
+
+  console.log(list);
 }
 
 function IsNewUser(username, list) {
@@ -1596,7 +1662,7 @@ function CreateNewUser(username, list) {
   list.appendChild(item);
 }
 
-function CreateSignInItem(username, list) {
+function CreateSignInCount(username, list) {
   var itemSignInCount = document.createElement('li');
 
   itemSignInCount.id = String(username) + "_signins";
@@ -1604,4 +1670,26 @@ function CreateSignInItem(username, list) {
   itemSignInCount.innerHTML = 1;
 
   list.appendChild(itemSignInCount);
+}
+
+function CreateGestureAttempts(username, list, digit) {
+  var itemDigitAttempts = document.createElement('li');
+
+  itemDigitAttempts.id = String(username) + "_" + String(digit) + "_attempts";
+
+  itemDigitAttempts.innerHTML = predictionCounter;
+
+  list.appendChild(itemDigitAttempts);
+
+
+}
+
+function CreateGestureAccuracy(username, list, digit) {
+  var itemDigitAccuracy = document.createElement('li');
+
+  itemDigitAccuracy.id = String(username) + "_" + String(digit) + "_accuracy";
+
+  itemDigitAccuracy.innerHTML = predictionAccuracy;
+
+  list.appendChild(itemDigitAccuracy);
 }
