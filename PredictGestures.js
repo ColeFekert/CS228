@@ -73,13 +73,11 @@ var username = "";
 var loginStart;
 var loginEnd;
 
+var newUser;
+
 // FUNCTIONS
 Leap.loop(controllerOptions, function(frame) {
   if (username != "") {
-    if (predictionCounter % 10 == 0 && predictionCounter > 0) {
-      UpdateUserStats();
-    }
-
     // Constantly update the login end time to the current time,
     //   so that when the program terminates, we can refer back to this saved value.
     // loginEnd = new Date();
@@ -1103,6 +1101,14 @@ function HandleState2(frame) {
   } else {
     DetermineWhetherToSwitchDigits();
 
+    if (newUser) {
+      // This is only looped on when its the user's first sign-on.
+      // This is so we can copy their stats over.
+      UpdateUserStats();
+    }
+
+    DrawLowerLeftPanel();
+
     DrawLowerRightPanel();
 
     HandleFrame(frame);
@@ -1577,6 +1583,8 @@ function SignIn() {
   if (IsNewUser(username, list)) {
     CreateNewUser(username, list);
 
+    newUser = true;
+
     loginStart = new Date()
 
     CreateSignInCount(username, list);
@@ -1588,6 +1596,8 @@ function SignIn() {
     }
 
   } else {
+    newUser = false;
+
     ID = String(username) + "_signins";
 
     listItem = document.getElementById( ID );
@@ -1615,27 +1625,87 @@ function SignIn() {
 }
 
 function UpdateUserStats() {
-  var list = document.getElementById('users');
+  var tableMutable = false;
 
-  ID = String(username) + "_" + String(digitToShow) + "_attempts";
+  if (tableMutable) {
+    var list = document.getElementById('users');
 
-  listItem = document.getElementById( ID );
+    ID = String(username) + "_" + String(digitToShow) + "_attempts";
 
-  // Log the listItem and check that the name is matching
+    listItem = document.getElementById( ID );
 
-  console.log(predictionCounter);
+    // Log the listItem and check that the name is matching
 
-  listItem.innerHTML = predictionCounter;
+    console.log(predictionCounter);
 
-  ID = String(username) + "_" + String(digitToShow) + "_accuracy";
+    listItem.innerHTML = predictionCounter;
 
-  listItem = document.getElementById( ID );
+    ID = String(username) + "_" + String(digitToShow) + "_accuracy";
 
-  console.log(predictionAccuracy);
+    listItem = document.getElementById( ID );
 
-  listItem.innerHTML = predictionAccuracy;
+    console.log(predictionAccuracy);
 
-  console.log(list);
+    listItem.innerHTML = predictionAccuracy;
+
+    console.log(list.innerHTML);
+  } else {
+    var list = document.getElementById('users');
+
+    console.log(list.innerHTML);
+  }
+
+}
+
+function DrawLowerLeftPanel() {
+  console.log("DrawLowerLeftPanel() called.")
+  var yStart = (window.innerHeight / 2) + (window.innerHeight / 6);
+
+  var yLowerStart = (window.innerHeight / 2) + (window.innerHeight / 6) * 2;
+
+  for (var i = 0; i < 10; i += 1) {
+    // Display previous session data
+    var list = document.getElementById('users');
+
+    ID = String(username) + "_" + String(i) + "_accuracy";
+
+    listItem = document.getElementById( ID );
+
+    var colorProportion = ((listItem.innerHTML - 0) / 1) * 255;
+    strokeWeight(0);
+
+    fill(255 - colorProportion, colorProportion, 0);
+
+    circle(25 + (20 * i), yStart, 15);
+
+    textSize(20);
+    fill(100,100,100);
+    text("Previous Run's Stats", 20, yStart - 30);
+    textSize(24);
+    text("0 1 2 3 4 5 6 7 8 9", 18, yStart + 30);
+
+
+    // Display live data
+    textSize(20);
+    fill(25,200,25);
+    text("Live Stats", 20, yLowerStart - 30)
+    textSize(24);
+    text("0 1 2 3 4 5 6 7 8 9", 18, yLowerStart + 30);
+
+    var colorProportion = ((accuracyArray[i] - 0) / 1) * 255;
+
+    fill(255 - colorProportion, colorProportion, 0);
+    circle(25 + (20 * i), yLowerStart, 15);
+
+    if (!allTriedAtLeastOnce) {
+      for (var y = i + 1; y < 10; y += 1) {
+        fill(100, 100, 100);
+        strokeWeight(0);
+        circle(25 + (20 * y), yLowerStart, 15);
+      }
+    }
+    strokeWeight(8);
+  }
 }
 
 function IsNewUser(username, list) {
